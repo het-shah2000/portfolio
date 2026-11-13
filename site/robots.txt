@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://hetshahbuilds.in/sitemap.xml

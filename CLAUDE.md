@@ -24,7 +24,10 @@ Two readers: the **intermediary**, who skims, is often not technical and decides
 ## Files
 
 - `site/index.html`: the whole page (markup, CSS and JS). Static, no build step; `site/` deploys as it is.
-- `site/assets/`: the four SVG work-card diagrams. `portrait.webp` goes here when it arrives.
+- `site/assets/`: the four SVG work-card diagrams and `og-image.png` (the social preview card). `portrait.webp` goes here when it arrives.
+- `site/robots.txt` and `site/sitemap.xml`: bump `<lastmod>` in the sitemap after meaningful content changes.
+- `tools/og-image.html`: source for `og-image.png`; the rebuild command is in its top comment.
+- `wrangler.jsonc`: tells Cloudflare to deploy only `./site`. Keep it that way.
 - `tools/gen_art.py`: regenerates the diagrams with `python3 -I tools/gen_art.py <anton.woff> site/assets`. It needs fontTools and an Anton `.woff` file, which isn't in this folder. Labels become outlines, so edit text in the script, not in the SVGs.
 - `profile/profile.html` and `profile/Het_Shah_Profile.pdf`: the one-page profile the intermediaries can forward. Edit the HTML, then rebuild the PDF with the Chrome command in the comment at the top of that file, and check it still fits one A4 page. It follows the same hard rules as the site. It is not in `site/`, so it isn't deployed.
 - `docs/`, `Het_Shah_Resume.pdf` and `Het_Shah_Resume.tex`: private working material. Never deploy them. The résumé is the source for experience, projects, skills and figures. Use only the names that hard rule 1 clears.
@@ -63,10 +66,10 @@ Answered on 13 Nov 2026 and done: the availability line (approved, then taken of
 ## Hosting and launch
 
 - Host on **Cloudflare Workers with static assets** (free, commercial use allowed), deployed from the private repo github.com/het-shah2000/portfolio; live at hetshahbuilds.hetshah2000.workers.dev since 13 Nov 2026. Cloudflare labels Pages "legacy", so don't move to it. Only `site/` may be served. Don't use Vercel Hobby: the site promotes Het for paid work, which Vercel counts as commercial.
-- Once the domain is live, add the canonical URL, the Open Graph image, the sitemap and the private analytics snippet.
+- Deploys happen automatically on every push to `main` of the private GitHub repo. Canonical URL, Open Graph image and sitemap were added on 14 Nov 2026; Cloudflare Web Analytics is on (see the build notes for its open check).
 - **Before launch, remind Het of brief §7 items 1 and 2.** Item 1: his current employment contract's outside-work clause; he needs written consent before freelancing publicly. Item 2: client confidentiality.
 
 ## Domain and email
 
-- The domain is **hetshahbuilds.in**. Het has bought it (confirmed 13 Nov 2026). It isn't connected to hosting yet.
+- The domain is **hetshahbuilds.in**. Het bought it at one.com (confirmed 13 Nov 2026). Its DNS is on Cloudflare and it serves the site since 14 Nov 2026; `www` redirects to it through a Cloudflare Redirect Rule, not a Worker custom domain.
 - The contact email on the site and the profile PDF is **hetshah2000@gmail.com**, as Het asked. There is no address on the domain.
