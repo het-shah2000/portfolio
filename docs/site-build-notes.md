@@ -1,6 +1,6 @@
 # hetshahbuilds.in site build notes
 
-Last updated 13 Nov 2026 (evening: page restructured, names cleared, profile PDF added; later, availability line and About employer names taken off). Read `CLAUDE.md` and `docs/content-plan.md` first, then this.
+Last updated 13 Nov 2026 (evening: page restructured, names cleared, profile PDF added; later, availability line and About employer names taken off; late, site deployed on Cloudflare Workers). Read `CLAUDE.md` and `docs/content-plan.md` first, then this.
 
 ## What exists
 
@@ -19,10 +19,11 @@ Last updated 13 Nov 2026 (evening: page restructured, names cleared, profile PDF
 - **Names (Het, 13 Nov 2026):** the site names Infocusp Innovations, Crest Data, LearnElectronics, Armis, Comcast and Splunk. Clients are always shown as Crest Data's customers ("Armis, through Crest Data"). Internal product and platform names stay out until Het clears them. Later that evening Het had Infocusp Innovations and Crest Data taken out of the About intro, in wording he supplied, so that paragraph names Armis, Comcast and Splunk without "through Crest Data". The Experience rows, the Work cards and the profile PDF still name the employers; he hasn't asked to change them.
 - **Availability line: removed (Het, 13 Nov 2026, evening).** He approved "Available part-time for contract work" earlier that day, then asked for it off the hero and the contact block "for now". The hero keeps "Ahmedabad, IST · Remote" and the contact block keeps "Based in Ahmedabad (IST), working remotely." The profile PDF still carries the availability line, because the request named the site's header and footer. Put the line back in the same places if he asks.
 - **Contact:** hetshah2000@gmail.com, LinkedIn and GitHub (github.com/het-shah2000). No phone number.
-- **Domain:** hetshahbuilds.in, bought by Het. Not connected to hosting yet.
+- **Domain:** hetshahbuilds.in, bought by Het at one.com. Not connected to hosting yet.
 - **Certifications:** the AWS Solutions Architect Associate line stays and links to the Credly badge from the résumé. The Anthropic certifications line was removed, because Het's answer kept only the AWS name. Restore it if he asks.
 - **Personal projects:** no "Built on my own" row. Het said to skip it for now. His GitHub has three repos (a 2025 Flask and React weather app with placeholder demo links, a 2021 college project and a fork); none shows the work this site is about.
-- **Hosting:** Cloudflare Pages. Not Vercel Hobby, because the site promotes paid work.
+- **Hosting:** Cloudflare Workers with static assets (13 Nov 2026), deployed from the private GitHub repo github.com/het-shah2000/portfolio on every push to `main`. Live at hetshahbuilds.hetshah2000.workers.dev. Cloudflare now labels Pages "legacy", so Workers was chosen instead. Checked on 13 Nov 2026: only `site/` is served; the résumé, `docs/`, `tools/`, `profile/` and `CLAUDE.md` return 404. The repo has no `wrangler.jsonc` yet, so Cloudflare's auto-setup chose the folder. Not Vercel Hobby, because the site promotes paid work.
+- **Git:** the résumé PDF and `.tex` are not committed (untracked).
 - Analytics must be visible to Het only. Not added yet; there is a placeholder comment at the end of `index.html` for the host's snippet.
 - The résumé PDF and `.tex` must not be deployed: they carry a phone number.
 - No invented testimonials. The Voices section stays out until real recommendations arrive.
@@ -66,9 +67,10 @@ Rendered in headless Chrome at 16 sizes: 320, 360, 375, 390, 412 and 430 wide ph
 4. Het to say whether the Anthropic certifications line should come back.
 5. Het to say whether any internal product name may be used.
 6. What "98.5% success" means on the LLM pipeline card, if Het can define it (brief §4).
-7. Connect hetshahbuilds.in to Cloudflare Pages. Then add the canonical URL, social preview image, sitemap and analytics snippet. The profile PDF already prints the domain, so send it out only once the site is live.
+7. Connect hetshahbuilds.in to the Cloudflare Worker (nameservers at one.com, then a custom domain on the Worker). Then add the canonical URL, social preview image, sitemap and analytics snippet. The profile PDF already prints the domain, so send it out only once the site is live.
 8. Het's GitHub profile is thin for a link on this page: no bio, and the newest repo's README has placeholder demo links. Worth tidying before launch, or drop the link.
 9. The four local SVGs each carry a content-credentials block in `<metadata>` saying Claude provided the file. It is harmless and visible only in the file source. Running `tools/gen_art.py` again writes files without it.
 10. Optional: link the profile PDF from the site. It would need a copy inside `site/`.
 11. Later: case-study pages with before and after numbers (research brief §4).
 12. Het to say whether the profile PDF should drop the availability line too, and whether the employer names should also come off the Experience rows, the Work cards and the PDF. Those rows need something in their place, so ask before changing them.
+13. Commit a `wrangler.jsonc` that pins `assets.directory` to `./site`, so a change in Cloudflare's auto-detection can never publish the rest of the repo.

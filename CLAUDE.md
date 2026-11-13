@@ -62,7 +62,7 @@ Answered on 13 Nov 2026 and done: the availability line (approved, then taken of
 
 ## Hosting and launch
 
-- Host on **Cloudflare Pages** (free, commercial use allowed). Don't use Vercel Hobby: the site promotes Het for paid work, which Vercel counts as commercial.
+- Host on **Cloudflare Workers with static assets** (free, commercial use allowed), deployed from the private repo github.com/het-shah2000/portfolio; live at hetshahbuilds.hetshah2000.workers.dev since 13 Nov 2026. Cloudflare labels Pages "legacy", so don't move to it. Only `site/` may be served. Don't use Vercel Hobby: the site promotes Het for paid work, which Vercel counts as commercial.
 - Once the domain is live, add the canonical URL, the Open Graph image, the sitemap and the private analytics snippet.
 - **Before launch, remind Het of brief §7 items 1 and 2.** Item 1: his current employment contract's outside-work clause; he needs written consent before freelancing publicly. Item 2: client confidentiality.
 
