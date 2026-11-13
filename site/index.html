@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Het Shah | Backend and AI systems engineer</title>
+<meta name="description" content="Het Shah builds LLM pipelines and event-driven backends on AWS that hold up under load. Five years on multi-tenant platforms for enterprise security and data products.">
+<meta name="theme-color" content="#08080a">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Het Shah | Backend and AI systems engineer">
+<meta property="og:description" content="LLM pipelines and event-driven backends that hold up when the load arrives all at once.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2308080a'/%3E%3Ctext x='32' y='43' font-family='Arial,Helvetica,sans-serif' font-weight='700' font-size='28' text-anchor='middle' fill='%23ff3b1d'%3EHS%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Onest:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<script>document.documentElement.className += " js";</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Person","name":"Het Shah","jobTitle":"Backend and AI systems engineer","address":{"@type":"PostalAddress","addressLocality":"Ahmedabad","addressCountry":"IN"},"sameAs":["https://www.linkedin.com/in/het-shah2000/","https://github.com/het-shah2000"],"knowsAbout":["Distributed systems","Event-driven architecture","Multi-tenant SaaS","LLM pipelines","AWS","Python"]}
+</script>
+<style>
+/* Layout idea: one near-black column of stacked, rem-scaled sections; the giant accent name anchors the first screen. */
+:root{
+  --background:#08080a; --foreground:#f3f1ea; --surface:#111114; --surface-2:#17171b;
+  --muted:#807f78; --line:rgba(243,241,234,.1); --line-strong:rgba(243,241,234,.22);
+  --accent:#ff3b1d; --accent-2:#ff6a3d;
+  --gutter:2.5rem; --section:9rem;
+  --font-display:"Anton","Arial Narrow",Impact,sans-serif;
+  --font-sans:"Onest",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --fs-hero:28rem; --fs-display:7.5rem; --fs-h1:5rem; --fs-h2:3.25rem; --fs-h3:1.75rem;
+  --fs-lead:1.375rem; --fs-body:1.0625rem; --fs-eyebrow:.8125rem;
+  --expo:cubic-bezier(.16,1,.3,1); --wipe:cubic-bezier(.22,1,.36,1);
+  color-scheme:dark;
+}
+
+/* reset */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+img,video,svg{display:block;max-width:100%}
+ul,ol{list-style:none}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;-webkit-appearance:none;appearance:none}
+h1,h2,h3{font-weight:400}
+
+/* rem-based adaptive grid: the layout is authored against 1920px and scales with the viewport */
+html{font-size:16px;background:var(--background)}
+@media (max-width:1920px){html{font-size:.833333vw}}
+@media (max-width:1440px){html{font-size:1.111111vw}}
+@media (max-width:1024px){html{font-size:1.5625vw}}
+@media (max-width:639.98px){html{font-size:4.444444vw}:root{--gutter:16px}}
+
+body{background:var(--background);color:var(--foreground);font-family:var(--font-sans);font-size:var(--fs-body);line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden}
+::selection{background:var(--accent);color:var(--background)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:.25rem}
+main{position:relative;width:100%;overflow-x:hidden}
+html.is-locked{overflow:hidden}
+
+/* Lenis */
+html.lenis,html.lenis body{height:auto}
+.lenis:not(.lenis-autoToggle).lenis-stopped{overflow:clip}
+.lenis [data-lenis-prevent]{overscroll-behavior:contain}
+.lenis.lenis-smooth iframe{pointer-events:none}
+
+/* shared pieces */
+.section{padding:var(--section) var(--gutter)}
+.eyebrow{display:flex;align-items:center;gap:.75rem;font-size:var(--fs-eyebrow);line-height:1.2;font-weight:500;text-transform:uppercase;letter-spacing:.22em;color:var(--muted)}
+.eyebrow::before{content:"";flex:none;width:.5rem;height:.5rem;border-radius:9999px;background:var(--accent)}
+.display{font-family:var(--font-display);text-transform:uppercase;letter-spacing:-.01em}
+.sec-head{display:flex;flex-direction:column;gap:1.5rem}
+.sec-head__label{font-size:var(--fs-eyebrow);line-height:1.2;text-transform:uppercase;letter-spacing:.22em;color:var(--muted)}
+.sec-lead{margin-top:2rem;max-width:52ch;font-size:var(--fs-lead);line-height:1.45;color:var(--muted)}
+.tlink{color:var(--foreground);border-bottom:1px solid var(--line-strong);transition:color .3s ease,border-color .3s ease}
+.tlink:hover,.tlink:focus-visible{color:var(--accent);border-color:var(--accent)}
+.nb{white-space:nowrap}
+@media (min-width:640px){.sec-head{flex-direction:row;align-items:flex-end;justify-content:space-between}}
+
+/* scroll reveals (only when JS is running; without JS everything is simply visible) */
+html.js .reveal-up{opacity:0;transform:translateY(var(--y,24px));transition:opacity var(--dur,.56s) var(--expo),transform var(--dur,.56s) var(--expo);transition-delay:var(--d,0ms)}
+html.js .reveal-up.in-view{opacity:1;transform:none}
+html.js .reveal-lines{opacity:0}
+html.js .reveal-lines.is-split{opacity:1}
+.w{display:inline-block}
+.line{display:block;overflow:hidden;padding-bottom:.12em;margin-bottom:-.12em}
+.line-in{display:block;opacity:0;transform:translateY(120%);transition:transform .9s var(--expo),opacity .9s var(--expo)}
+.in-view .line-in{opacity:1;transform:none}
+
+/* 1. preloader */
+.preloader{display:none}
+html.js .preloader{position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;gap:.75rem;padding:var(--gutter);transition:transform .65s var(--wipe)}
+html.js .preloader::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--background)}
+.preloader__brand{font-family:var(--font-display);font-size:var(--fs-h3);text-transform:uppercase;line-height:1;letter-spacing:-.01em;transition:opacity .3s ease}
+.preloader__count{font-family:var(--font-display);font-size:var(--fs-display);line-height:1;font-variant-numeric:tabular-nums;transition:opacity .3s ease}
+.preloader__count i{font-style:normal;color:var(--accent)}
+.preloader.is-counted .preloader__brand,.preloader.is-counted .preloader__count{opacity:0}
+html.js .preloader.is-wiping{transform:translateY(-100%)}
+@media (min-width:640px){html.js .preloader{flex-direction:row;align-items:flex-end;justify-content:space-between;gap:1rem}}
+
+/* 2. nav */
+.site-header{position:fixed;inset-inline:0;top:0;z-index:60;pointer-events:none}
+.site-nav{pointer-events:auto;display:flex;align-items:center;justify-content:space-between;padding:1.5rem var(--gutter)}
+.logo{display:flex;align-items:center;gap:.75rem}
+.logo__badge{display:grid;place-items:center;width:2.5rem;height:2.5rem;border-radius:9999px;border:1px solid var(--line-strong);font-size:.9375rem;font-weight:600;letter-spacing:-.01em;line-height:1}
+.logo__name{display:none;font-size:var(--fs-eyebrow);font-weight:500;text-transform:uppercase;letter-spacing:.22em;color:var(--muted)}
+.nav-links{display:none;gap:2.5rem}
+.nav-links a{position:relative;font-size:var(--fs-eyebrow);font-weight:500;text-transform:uppercase;letter-spacing:.18em;color:var(--muted);transition:color .3s ease}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:-.25rem;height:1px;width:0;background:var(--accent);transition:width .3s ease}
+.nav-links a:hover,.nav-links a:focus-visible{color:var(--foreground)}
+.nav-links a:hover::after,.nav-links a:focus-visible::after{width:100%}
+.burger{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.375rem;width:2.75rem;height:2.75rem;margin-right:-.375rem}
+.burger span{display:block;width:1.5rem;height:.125rem;background:var(--foreground);transition:transform .3s ease,opacity .2s ease}
+.burger.is-open span:nth-child(1){transform:translateY(.5rem) rotate(45deg)}
+.burger.is-open span:nth-child(2){opacity:0}
+.burger.is-open span:nth-child(3){transform:translateY(-.5rem) rotate(-45deg)}
+.mobile-menu{position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;justify-content:center;padding-inline:var(--gutter);background:var(--background);opacity:0;visibility:hidden;transition:opacity .45s ease-out,visibility 0s linear .45s}
+.mobile-menu.is-open{opacity:1;visibility:visible;transition:opacity .45s ease-out}
+.mobile-menu ul{display:flex;flex-direction:column;gap:1.75rem}
+.mobile-menu li{opacity:0;transform:translateY(48px);transition:opacity .42s ease-out,transform .42s ease-out}
+.mobile-menu.is-open li{opacity:1;transform:none;transition-delay:calc(120ms + var(--i) * 70ms)}
+.mobile-menu a{display:block;font-family:var(--font-display);font-size:var(--fs-h2);text-transform:uppercase;line-height:1;letter-spacing:-.01em}
+@media (min-width:640px){.logo__name{display:block}}
+@media (min-width:768px){.nav-links{display:flex}.burger,.mobile-menu{display:none}}
+
+/* 3. hero */
+.hero{position:relative;display:flex;flex-direction:column;min-height:100vh;min-height:100svh;overflow:hidden}
+.hero__top{position:relative;z-index:30;display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-areas:"roles status" "desc desc";gap:2rem 1rem;padding:6.5rem var(--gutter) 0}
+/* Availability: a status block beside the roles on phones, one line above the top row from 640px.
+   Both places were empty before, so the roles, the description and the name keep their positions. */
+.hero__status{grid-area:status;justify-self:end;padding-top:.25rem;font-size:var(--fs-eyebrow);line-height:1.55;font-weight:500;text-transform:uppercase;letter-spacing:.14em;text-align:right;color:var(--muted)}
+.hero__status>span{display:block}
+.hero__status-main{max-width:10.5rem;margin-left:auto;color:var(--foreground)}
+.hero__status-main::before{content:"";display:inline-block;width:.5rem;height:.5rem;margin-right:.625rem;border-radius:9999px;background:var(--accent);vertical-align:.04em}
+.hero__roles{grid-area:roles;justify-self:start;font-family:var(--font-display);font-size:var(--fs-h3);text-transform:uppercase;line-height:1.05;letter-spacing:-.01em}
+.role{display:block;overflow:hidden}
+.role>span{display:block}
+.hero__desc{grid-area:desc;max-width:26rem;color:var(--muted)}
+.hero__portrait{position:absolute;z-index:20;bottom:0;left:50%;width:80vw;height:86vh;transform:translateX(-50%);pointer-events:none}
+.hero__portrait .liquid{width:100%;height:100%;pointer-events:auto}
+.hero__portrait img{object-position:center bottom}
+.hero__fade{position:absolute;z-index:20;inset-inline:0;bottom:0;height:11vh;background:linear-gradient(to bottom,transparent,var(--background));pointer-events:none}
+.hero.has-portrait .hero__fade{height:26vh}
+/* Name sizing: without a portrait the two lines get a hairline of air (line-height .9) and are capped by
+   viewport height so they never run into the top row. With a portrait the template's tighter stack applies. */
+.hero__name{position:absolute;z-index:10;inset-inline:0;bottom:0;display:flex;flex-direction:column;align-items:center;transform:translateY(6%);font-family:var(--font-display);font-size:min(10.5rem,21vh);font-size:min(10.5rem,21svh);text-transform:uppercase;line-height:.9;letter-spacing:-.01em;color:var(--accent)}
+.hero.has-portrait .hero__name{line-height:.86}
+.name-line{display:block;white-space:nowrap}
+.ch{display:inline-block}
+.hero__cue{position:absolute;z-index:30;left:var(--gutter);bottom:2rem;display:none;align-items:center;gap:.75rem;font-size:var(--fs-eyebrow);line-height:1.2;text-transform:uppercase;letter-spacing:.22em;color:var(--muted)}
+.hero__cue::before{content:"";width:2.5rem;height:1px;background:var(--accent)}
+html.js .ch{opacity:0;transform:translateY(100%);transition:transform .9s var(--expo),opacity .9s var(--expo)}
+html.js .role>span{opacity:0;transform:translateY(110%);transition:transform .76s var(--expo),opacity .76s var(--expo)}
+html.js .hero__desc,html.js .hero__status{opacity:0;transform:translateY(16px);transition:transform .52s var(--expo),opacity .52s var(--expo)}
+html.js .hero__cue{opacity:0;transition:opacity .6s ease}
+html.js.hero-in .ch,html.js.hero-in .role>span,html.js.hero-in .hero__desc,html.js.hero-in .hero__status{opacity:1;transform:none}
+html.js.hero-in .hero__cue{opacity:1}
+/* Phones: the top block is 24.4rem tall at every phone width, so the name is also capped by the room left
+   under it. On very short screens it stops shrinking at 6rem and the hero grows instead; the two never overlap. */
+@media (max-width:639.98px){
+  .hero:not(.has-portrait){--name:min(10.5rem,21vh,max(6rem,calc((100vh - 25.2rem) / 1.692)))}
+  .hero:not(.has-portrait) .hero__name{font-size:var(--name)}
+  .hero:not(.has-portrait) .hero__top{padding-bottom:calc(var(--name) * 1.692 + .75rem)}
+}
+@supports (height:1svh){
+  @media (max-width:639.98px){
+    .hero:not(.has-portrait){--name:min(10.5rem,21svh,max(6rem,calc((100svh - 25.2rem) / 1.692)))}
+  }
+}
+@media (min-width:640px){
+  .hero__top{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"status status" "roles desc";align-items:start;gap:.75rem var(--gutter);padding-top:6.25rem}
+  .hero__status{justify-self:start;display:flex;flex-wrap:wrap;padding-top:0;line-height:1.2;letter-spacing:.22em;text-align:left}
+  .hero__status-main{max-width:none;margin-left:0}
+  .hero__status-sub::before{content:"\00b7";margin-inline:.75rem}
+  .hero__roles{font-size:var(--fs-h2)}
+  .hero__desc{text-align:right}
+  .hero__portrait{width:48vw}
+  .hero__name{font-size:min(var(--fs-hero),40vh);font-size:min(var(--fs-hero),40svh)}
+  .hero.has-portrait .hero__name{font-size:min(var(--fs-hero),45vh);font-size:min(var(--fs-hero),45svh);line-height:.78}
+}
+@media (min-width:1025px){
+  .hero__portrait{width:36vw}
+  .hero__name{font-size:min(var(--fs-hero),45vh);font-size:min(var(--fs-hero),45svh)}
+  .hero.has-portrait .hero__name{font-size:min(var(--fs-hero),50vh);font-size:min(var(--fs-hero),50svh)}
+  .hero__cue{display:flex}
+}
+
+/* 4. marquee */
+.marquee{overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:2rem 0}
+.marquee__track{display:flex;flex-wrap:nowrap;width:max-content;animation:marquee 22s linear infinite}
+.marquee__item{display:flex;align-items:center;font-family:var(--font-display);font-size:var(--fs-h2);line-height:1;text-transform:uppercase;letter-spacing:-.01em;white-space:nowrap}
+.marquee__item::after{content:"";flex:none;width:.625rem;height:.625rem;margin-inline:2rem;border-radius:9999px;background:var(--accent)}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* 5. about */
+.story__grid{display:grid;grid-template-columns:minmax(0,1fr);gap:3rem var(--gutter)}
+.story__title{margin-top:1.5rem;max-width:16ch;font-size:var(--fs-h2);line-height:.95}
+.story__lead{margin-top:2rem;max-width:46ch;font-size:var(--fs-lead);line-height:1.45;color:var(--muted)}
+.story__lead+.story__lead{margin-top:1.25rem}
+.story__lead strong{font-weight:500;color:var(--foreground)}
+.story__creds{margin-top:2.5rem;padding-top:1.5rem;max-width:34rem;border-top:1px solid var(--line);font-size:var(--fs-eyebrow);line-height:1.7;text-transform:uppercase;letter-spacing:.14em;color:var(--muted)}
+.story__creds li+li{margin-top:.5rem}
+.principles{margin-top:1.5rem}
+.principle{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:1.5rem;padding:2rem 0;border-top:1px solid var(--line)}
+.principle:last-child{border-bottom:1px solid var(--line)}
+.principle__idx{font-size:var(--fs-h3);line-height:1.15;font-weight:600;font-variant-numeric:tabular-nums;color:var(--accent)}
+.principle h3{font-size:var(--fs-h3);line-height:1.15;font-weight:600;letter-spacing:-.01em}
+.principle p{margin-top:.75rem;max-width:44ch;color:var(--muted)}
+@media (min-width:640px){.story__title{font-size:var(--fs-h1)}}
+@media (min-width:1024px){
+  .story__grid{grid-template-columns:repeat(12,minmax(0,1fr))}
+  .story__left,.story__right{grid-column:span 6}
+}
+
+/* 6. experience: rows built from the principle and card styles */
+.exp__title{margin-top:1.5rem;max-width:14ch;font-size:var(--fs-h2);line-height:.95}
+.exp__list{margin-top:4rem}
+.exp{display:grid;grid-template-columns:minmax(0,1fr);gap:1rem var(--gutter);padding:2rem 0;border-top:1px solid var(--line)}
+.exp:last-child{border-bottom:1px solid var(--line)}
+.exp__when{font-size:var(--fs-eyebrow);line-height:1.2;font-weight:500;text-transform:uppercase;letter-spacing:.18em;font-variant-numeric:tabular-nums;color:var(--accent)}
+.exp__role{font-size:var(--fs-h3);line-height:1.15;font-weight:600;letter-spacing:-.01em}
+.exp__org{margin-top:.625rem;font-size:var(--fs-eyebrow);line-height:1.4;font-weight:500;text-transform:uppercase;letter-spacing:.18em;color:var(--muted)}
+.exp__org b{font-weight:500;color:var(--foreground)}
+.exp__what{max-width:54ch;color:var(--muted)}
+@media (min-width:640px){
+  .exp__title{font-size:var(--fs-h1)}
+  .exp{grid-template-columns:13rem minmax(0,1fr)}
+  .exp__when{grid-row:1 / span 2;padding-top:.5rem}
+}
+@media (min-width:1024px){
+  .exp{grid-template-columns:repeat(12,minmax(0,1fr));padding:2.5rem 0}
+  .exp__when{grid-column:span 3;grid-row:auto}
+  .exp__head{grid-column:span 4}
+  .exp__what{grid-column:span 5}
+}
+
+/* liquid image */
+.liquid{position:relative;overflow:hidden;isolation:isolate;border-radius:.125rem;background:radial-gradient(130% 130% at 30% 15%,var(--surface-2),var(--background))}
+.liquid--bare{border-radius:0;background:none}
+.liquid>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.liquid__veil,.liquid__glow,.liquid__vignette{position:absolute;inset:0;pointer-events:none}
+.liquid__veil{background:var(--background);mix-blend-mode:color;opacity:.88;transition:opacity .38s ease-out}
+.liquid__glow{background:linear-gradient(120deg,transparent 30%,rgba(255,59,29,.35) 50%,transparent 70%);background:linear-gradient(120deg,transparent 30%,color-mix(in srgb,var(--accent) 35%,transparent) 50%,transparent 70%);opacity:0;transition:opacity .34s ease-out}
+.liquid__vignette{background:radial-gradient(120% 120% at 50% 120%,rgba(8,8,10,.7),transparent 60%)}
+.liquid.is-hover .liquid__veil{opacity:0}
+.liquid.is-hover .liquid__glow{opacity:1}
+.liquid.is-color .liquid__veil{opacity:0;transition-duration:.9s}
+
+/* 7. work */
+.work__title{margin-top:1.5rem;max-width:14ch;font-size:var(--fs-h2);line-height:.95}
+.work__grid{margin-top:4rem;display:grid;grid-template-columns:minmax(0,1fr);column-gap:var(--gutter);row-gap:4rem}
+.card{scroll-margin-top:7rem}
+.card .liquid{width:100%;aspect-ratio:16/11}
+.card__row{margin-top:1.5rem;padding-top:1.25rem;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:1rem}
+.card__name{font-size:var(--fs-h3);line-height:1.15;font-weight:600;letter-spacing:-.01em;transition:color .34s ease-out}
+.card:hover .card__name{color:var(--accent)}
+.card__idx{margin-right:.625rem;font-variant-numeric:tabular-nums;color:var(--accent)}
+.card__blurb{margin-top:.5rem;max-width:42ch;color:var(--muted)}
+.card__meta{flex:none}
+.card__scale,.card__outcome{font-size:var(--fs-eyebrow);line-height:1.2;text-transform:uppercase;letter-spacing:.18em}
+.card__scale{color:var(--muted)}
+.card__outcome{margin-top:.5rem;font-weight:500;color:var(--accent)}
+.card__facts{margin-top:1.5rem;border-top:1px solid var(--line)}
+.card__facts>div{display:grid;grid-template-columns:5.5rem minmax(0,1fr);column-gap:1rem;align-items:baseline;padding:.875rem 0;border-bottom:1px solid var(--line)}
+.card__facts dt{font-size:var(--fs-eyebrow);line-height:1.2;text-transform:uppercase;letter-spacing:.18em;color:var(--muted)}
+.card__facts dd{line-height:1.45}
+.card__detail{margin-top:1.25rem;display:flex;flex-direction:column;gap:.625rem;color:var(--muted)}
+.card__detail li{position:relative;padding-left:1.25rem}
+.card__detail li::before{content:"";position:absolute;left:0;top:.8em;width:.5rem;height:1px;background:var(--accent)}
+.card__stack{margin-top:1.25rem;font-size:var(--fs-eyebrow);line-height:1.7;text-transform:uppercase;letter-spacing:.14em;color:var(--muted)}
+.card__cat{margin-top:1.25rem;font-size:var(--fs-eyebrow);line-height:1.2;text-transform:uppercase;letter-spacing:.22em;color:var(--muted)}
+@media (min-width:640px){
+  .work__title{font-size:var(--fs-h1)}
+  .card__row{flex-direction:row;align-items:flex-start;justify-content:space-between;gap:1.5rem}
+  .card__meta{text-align:right}
+}
+@media (min-width:768px){
+  .work__grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .work__grid>li:nth-child(even){margin-top:6rem;--d:120ms}
+}
+
+/* 8. impact */
+.impact__title{margin-top:1.5rem;font-size:var(--fs-h2);line-height:1}
+.stats{margin-top:4rem;display:grid;grid-template-columns:minmax(0,1fr);border-top:1px solid var(--line)}
+.stat{display:flex;flex-direction:column;gap:1rem;padding:2.5rem 0;border-bottom:1px solid var(--line)}
+.stat dd{order:-1;font-family:var(--font-display);font-size:var(--fs-display);line-height:1;letter-spacing:-.01em;transition:color .34s ease-out}
+.stat:hover dd{color:var(--accent)}
+.stat dt{max-width:20ch;line-height:1.5;text-transform:uppercase;letter-spacing:.14em;color:var(--muted)}
+@media (min-width:640px){
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .stat:nth-child(2n){padding-left:2rem;border-left:1px solid var(--line)}
+}
+@media (min-width:1024px){
+  .stats{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .stat{padding:3rem 0}
+  .stat:not(:nth-child(4n+1)){padding-left:2rem;border-left:1px solid var(--line)}
+}
+
+/* 9. skills: one row per group, each ending in links to the projects that used it */
+.skills__title{margin-top:1.5rem;max-width:14ch;font-size:var(--fs-h2);line-height:.95}
+.skills__list{margin-top:4rem;border-top:1px solid var(--line)}
+.skill{display:grid;grid-template-columns:minmax(0,1fr);gap:.75rem var(--gutter);padding:1.75rem 0;border-bottom:1px solid var(--line)}
+.skill h3{font-size:var(--fs-lead);line-height:1.3;font-weight:600;letter-spacing:-.01em}
+.skill__items{max-width:58ch;color:var(--muted)}
+.skill__proof{display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;font-size:var(--fs-eyebrow);line-height:1.3;font-weight:500;text-transform:uppercase;letter-spacing:.14em}
+.skill__proof a{color:var(--accent);transition:color .3s ease}
+.skill__proof a:hover,.skill__proof a:focus-visible{color:var(--foreground)}
+.skills__also{margin-top:2rem;font-size:var(--fs-eyebrow);line-height:1.7;text-transform:uppercase;letter-spacing:.14em;color:var(--muted)}
+@media (min-width:640px){
+  .skills__title{font-size:var(--fs-h1)}
+  .skill{grid-template-columns:15rem minmax(0,1fr)}
+  .skill h3{grid-row:1 / span 2}
+}
+@media (min-width:1024px){
+  .skill{grid-template-columns:repeat(12,minmax(0,1fr));align-items:baseline}
+  .skill h3{grid-column:span 3;grid-row:auto}
+  .skill__items{grid-column:span 6}
+  .skill__proof{grid-column:span 3;justify-content:flex-end;text-align:right}
+}
+
+/* 11. contact and footer */
+.contact{padding:var(--section) var(--gutter) 0}
+.contact__title{margin-top:1.5rem;max-width:18ch;font-size:var(--fs-h1);line-height:.95}
+.contact__lead{margin-top:2rem;max-width:44ch;font-size:var(--fs-lead);line-height:1.45;color:var(--muted)}
+.contact__mail{margin-top:3rem;display:inline-flex;align-items:baseline;gap:.75rem;max-width:100%;font-size:1.375rem;line-height:1.15;font-weight:600;letter-spacing:-.01em;overflow-wrap:anywhere;transition:transform .34s ease-out,color .34s ease-out}
+.contact__mail span{color:var(--accent)}
+.contact__mail:hover,.contact__mail:focus-visible{transform:translateX(14px);color:var(--accent)}
+.footbar{margin-top:var(--section);padding:3rem 0;border-top:1px solid var(--line);display:grid;grid-template-columns:minmax(0,1fr);gap:2.5rem}
+.footbar__sig{font-family:var(--font-display);font-size:var(--fs-h2);line-height:1;text-transform:uppercase;letter-spacing:-.01em}
+.footbar__tag{margin-top:1rem;font-size:var(--fs-eyebrow);line-height:1.2;text-transform:uppercase;letter-spacing:.22em;color:var(--muted)}
+.social{display:flex;flex-direction:column;gap:.5rem}
+.social a{display:inline-flex;align-items:center;padding:.25rem 0;color:var(--muted);transition:color .3s ease}
+.social a::before{content:"";height:1px;width:0;background:var(--accent);transition:width .3s ease,margin-right .3s ease}
+.social a:hover,.social a:focus-visible{color:var(--foreground)}
+.social a:hover::before,.social a:focus-visible::before{width:1.5rem;margin-right:.75rem}
+.footbar__copy{font-size:var(--fs-eyebrow);line-height:1.6;text-transform:uppercase;letter-spacing:.18em;color:var(--muted)}
+@media (min-width:640px){
+  .contact__title{font-size:var(--fs-display)}
+  .contact__mail{gap:1rem;font-size:4rem;line-height:1}
+}
+@media (min-width:1025px){.contact__mail{font-size:var(--fs-h1)}}
+@media (min-width:1024px){
+  .footbar{grid-template-columns:repeat(12,minmax(0,1fr))}
+  .footbar__left{grid-column:span 6}
+  .footbar__mid{grid-column:span 3}
+  .footbar__copy{grid-column:span 3;text-align:right}
+}
+
+@media (prefers-reduced-motion:reduce){
+  html.js .preloader{display:none}
+  .marquee__track{animation:none}
+  html.js .reveal-up,html.js .reveal-lines,html.js .ch,html.js .role>span,html.js .hero__desc,html.js .hero__status,html.js .hero__cue{opacity:1!important;transform:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<div class="preloader" id="preloader" aria-hidden="true">
+  <span class="preloader__brand">Het Shah</span>
+  <span class="preloader__count"><span id="preCount">0</span><i>%</i></span>
+</div>
+
+<header class="site-header">
+  <nav class="site-nav" aria-label="Main">
+    <a class="logo" href="#top" aria-label="Het Shah, back to top">
+      <span class="logo__badge">HS</span>
+      <span class="logo__name">Het Shah</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+</header>
+
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <ul>
+    <li style="--i:0"><a href="#about">About</a></li>
+    <li style="--i:1"><a href="#experience">Experience</a></li>
+    <li style="--i:2"><a href="#work">Work</a></li>
+    <li style="--i:3"><a href="#skills">Skills</a></li>
+    <li style="--i:4"><a href="#contact">Contact</a></li>
+  </ul>
+</div>
+
+<main>
+
+  <!-- 3. Hero -->
+  <section class="hero" id="top">
+    <div class="hero__top">
+      <p class="hero__status">
+        <span class="hero__status-main">Ahmedabad, IST</span>
+        <span class="hero__status-sub">Remote</span>
+      </p>
+      <h2 class="hero__roles">
+        <span class="role"><span>Backend</span></span>
+        <span class="role"><span>Cloud</span></span>
+        <span class="role"><span>AI Systems</span></span>
+        <span class="role"><span>Reliability</span></span>
+      </h2>
+      <p class="hero__desc">I build LLM pipelines and event-driven backends that hold up when the load arrives all at once. Five years on multi-tenant platforms for enterprise security and data products.</p>
+    </div>
+
+    <!-- Portrait slot. To use it: save a cut-out portrait (transparent background) as assets/portrait.webp,
+         remove this comment wrapper, and add the class "has-portrait" to the <section class="hero"> above.
+    <div class="hero__portrait">
+      <figure class="liquid liquid--bare" data-scale="30">
+        <img src="assets/portrait.webp" alt="Portrait of Het Shah">
+      </figure>
+    </div>
+    -->
+
+    <div class="hero__fade"></div>
+    <h1 class="hero__name" aria-label="Het Shah">
+      <span class="name-line" aria-hidden="true">Het</span>
+      <span class="name-line" aria-hidden="true">Shah</span>
+    </h1>
+    <p class="hero__cue">Scroll to enter</p>
+  </section>
+
+  <!-- 4. Marquee -->
+  <section class="marquee" aria-label="Operating principles">
+    <div class="marquee__track">
+      <span class="marquee__item">Design For The Burst</span>
+      <span class="marquee__item">Isolate Every Tenant</span>
+      <span class="marquee__item">Trace Every Call</span>
+      <span class="marquee__item">Cache What Repeats</span>
+      <span class="marquee__item">Ship With Tests</span>
+      <span class="marquee__item" aria-hidden="true">Design For The Burst</span>
+      <span class="marquee__item" aria-hidden="true">Isolate Every Tenant</span>
+      <span class="marquee__item" aria-hidden="true">Trace Every Call</span>
+      <span class="marquee__item" aria-hidden="true">Cache What Repeats</span>
+      <span class="marquee__item" aria-hidden="true">Ship With Tests</span>
+    </div>
+  </section>
+
+  <!-- 5. About -->
+  <section class="section" id="about">
+    <div class="story__grid">
+      <div class="story__left">
+        <p class="eyebrow">About</p>
+        <h2 class="display story__title reveal-lines">Reliability is a design decision.</h2>
+        <p class="story__lead reveal-up" style="--dur:.52s">I'm <strong>Het Shah</strong>, a backend and AI systems engineer in Ahmedabad with about five years of experience. I architect and deliver AI and application-security platforms for enterprise customers including Armis, Comcast and Splunk. Most of it is multi-tenant, event-driven backends on AWS and the multi-agent LLM pipelines that sit on top of them. I take features from design through testing and deployment, and I've mentored junior engineers on system design and code review. Right now I'm on a team studying how AI agent behaviour can be measured and validated reliably.</p>
+        <p class="story__lead reveal-up" style="--dur:.52s;--d:60ms">I build the parts of a platform that have to keep working under load: ingestion paths, queues, caches, and the LLM stages on top. The method doesn't change. Find where the system breaks in a burst, design that failure out, and leave behind numbers that prove it.</p>
+        <ul class="story__creds reveal-up" style="--dur:.52s;--d:120ms">
+          <li><a class="tlink" href="https://www.credly.com/badges/d7e12506-c59b-4144-a612-580bf2519a79/public_url" target="_blank" rel="noreferrer noopener">AWS Certified Solutions Architect, Associate</a></li>
+          <li>B.Tech in Information Technology, Dharmsinh Desai University, 2018 to 2022</li>
+        </ul>
+      </div>
+      <div class="story__right">
+        <p class="eyebrow">How I build</p>
+        <ul class="principles">
+          <li class="principle reveal-up" style="--d:0ms">
+            <span class="principle__idx">01</span>
+            <div>
+              <h3>Design for the burst, not the average</h3>
+              <p>Average load hides the real problem. One platform ran at 250K findings a day and hit 1.5M on weekly full-scan days. I size queues, workers and caches for that day.</p>
+            </div>
+          </li>
+          <li class="principle reveal-up" style="--d:90ms">
+            <span class="principle__idx">02</span>
+            <div>
+              <h3>Keep tenants out of each other's way</h3>
+              <p>In a multi-tenant system, one customer's spike must never become another's outage. Isolation is built into auth and rate limiting from the first commit.</p>
+            </div>
+          </li>
+          <li class="principle reveal-up" style="--d:180ms">
+            <span class="principle__idx">03</span>
+            <div>
+              <h3>Trace every model call</h3>
+              <p>An LLM pipeline you can't observe is a guess. Every call is traced, and every stage has its own model, retries and structured output, so failure rate and cost are known numbers.</p>
+            </div>
+          </li>
+          <li class="principle reveal-up" style="--d:270ms">
+            <span class="principle__idx">04</span>
+            <div>
+              <h3>Ship it with the tests</h3>
+              <p>Unit, integration and end-to-end suites run in containers before anything goes out. Release confidence in a distributed system is built once, then automated.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Experience -->
+  <section class="section" id="experience">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Experience</p>
+        <h2 class="display exp__title reveal-lines">Where I've worked.</h2>
+      </div>
+      <p class="sec-head__label">2021 to now</p>
+    </div>
+    <ol class="exp__list">
+      <li class="exp reveal-up" style="--d:0ms">
+        <p class="exp__when">Oct 2026 to now</p>
+        <div class="exp__head">
+          <h3 class="exp__role">Software Engineer 2</h3>
+          <p class="exp__org"><b>Infocusp Innovations</b> &middot; Ahmedabad</p>
+        </div>
+        <p class="exp__what">Part of a team on a client engagement studying an AI agent evaluation pipeline: how agent behaviour can be measured and validated reliably. I bring production experience with multi-agent LLM pipelines and LLM tracing to ground the approach.</p>
+      </li>
+      <li class="exp reveal-up" style="--d:90ms">
+        <p class="exp__when">Dec 2021 to Oct 2026</p>
+        <div class="exp__head">
+          <h3 class="exp__role">Senior Software Engineer</h3>
+          <p class="exp__org"><b>Crest Data</b> &middot; Ahmedabad</p>
+        </div>
+        <p class="exp__what">Architected and delivered AI and application-security platforms for enterprise customers including Armis, Comcast and Splunk, end to end: design, implementation, testing and deployment. Mentored junior engineers on system design, code review and pre-commit tooling. <a class="tlink" href="#work">The four projects below</a> come from this role.</p>
+      </li>
+      <li class="exp reveal-up" style="--d:180ms">
+        <p class="exp__when">May to Jul 2021</p>
+        <div class="exp__head">
+          <h3 class="exp__role">Website Developer Intern</h3>
+          <p class="exp__org"><b>LearnElectronics</b> &middot; Remote</p>
+        </div>
+        <p class="exp__what">Built interactive quizzes and event registration portals with FastAPI, HTML, CSS and JavaScript.</p>
+      </li>
+    </ol>
+  </section>
+
+  <!-- 7. Work -->
+  <section class="section" id="work">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Client Projects</p>
+        <h2 class="display work__title reveal-lines">The work that shipped.</h2>
+      </div>
+      <p class="sec-head__label">04 / Projects</p>
+    </div>
+    <p class="sec-lead reveal-up" style="--dur:.52s">Four projects from my time at Crest Data, 2021 to 2026. Each was built for one of its enterprise customers.</p>
+    <ul class="work__grid">
+      <li class="reveal-up" style="--y:60px;--dur:.62s">
+        <article class="card" id="work-01">
+          <figure class="liquid" data-scale="28" data-liquid="ripple">
+            <img src="assets/work-01-platform.svg" width="1600" height="1100" loading="lazy" decoding="async" alt="Diagram: twelve scanners feed an ingest API, a Kafka backbone and autoscaled workers. A week of traffic shows 250K findings on a typical day and 1.5M at the peak.">
+            <span class="liquid__veil"></span><span class="liquid__glow"></span><span class="liquid__vignette"></span>
+          </figure>
+          <div class="card__row">
+            <div>
+              <h3 class="card__name"><span class="card__idx">01</span>Multi-tenant AppSec platform</h3>
+              <p class="card__blurb">Event-driven backend for an application-security product. Twelve scanners behind one execution engine, and an ingest path moved from SQS to Kafka to absorb a weekly burst from 250K to 1.5M findings a day.</p>
+            </div>
+            <div class="card__meta">
+              <p class="card__scale">32 enterprise tenants</p>
+              <p class="card__outcome">No burst throttling</p>
+            </div>
+          </div>
+          <dl class="card__facts">
+            <div><dt>Client</dt><dd>Armis, through Crest Data</dd></div>
+            <div><dt>My role</dt><dd>Backend architect. I led the ingest migration.</dd></div>
+          </dl>
+          <ul class="card__detail">
+              <li>Architected the backend as event-driven microservices: FastAPI, with Lambda &rarr; SQS &rarr; ECS Fargate, autoscaling and dead-letter-queue alerting.</li>
+              <li>Built the engine that runs 12 SAST and DAST scanners, with unified finding normalisation, dependency chain resolution and SBOM/VEX generation.</li>
+              <li>Built an on-demand scan API (S3-backed uploads, SQS-driven ECS) and container image scanning across AWS ECR, GCP GCR and Docker Hub.</li>
+              <li>Built JWT and Basic auth middleware with rate limiting and cross-tenant isolation.</li>
+              <li>Designed a Valkey cache holding about 4M live keys at an 81% average hit rate, 95%+ during full scans.</li>
+              <li>Led the move of findings ingest from SQS to Kafka. It decoupled ingest throughput from the datastore's write capacity and ended burst throttling.</li>
+          </ul>
+          <p class="card__stack">Python, FastAPI, AWS (ECS Fargate, Lambda, SQS, S3, DocumentDB, Valkey, ALB, ECR, EventBridge, Secrets Manager, CloudWatch), Kafka, Docker</p>
+          <p class="card__cat">Application Security</p>
+        </article>
+      </li>
+      <li class="reveal-up" style="--y:60px;--dur:.62s">
+        <article class="card" id="work-02">
+          <figure class="liquid" data-scale="28" data-liquid="ripple">
+            <img src="assets/work-02-llm-pipeline.svg" width="1600" height="1100" loading="lazy" decoding="async" alt="Diagram: a five-stage LLM pipeline (scan, dedup, reachability, fix, validate) running on one model abstraction with two providers. 85% of prompt tokens come from cache.">
+            <span class="liquid__veil"></span><span class="liquid__glow"></span><span class="liquid__vignette"></span>
+          </figure>
+          <div class="card__row">
+            <div>
+              <h3 class="card__name"><span class="card__idx">02</span>Five-stage LLM fix pipeline</h3>
+              <p class="card__blurb">A multi-agent pipeline that finds vulnerabilities and proposes validated fixes. Two model providers behind one abstraction, every call traced, and 85% of prompt tokens served from cache.</p>
+            </div>
+            <div class="card__meta">
+              <p class="card__scale">212K calls a day</p>
+              <p class="card__outcome">98.5% success</p>
+            </div>
+          </div>
+          <dl class="card__facts">
+            <div><dt>Client</dt><dd>Armis, through Crest Data</dd></div>
+            <div><dt>My role</dt><dd>Built the provider abstraction and the tracing.</dd></div>
+          </dl>
+          <ul class="card__detail">
+              <li>Five stages: AST-based code scanning with tree-sitter, cross-scanner deduplication, reachability validation with Joern, agentic fix proposal, and fix validation.</li>
+              <li>Built one abstraction over Cerebras and AWS Bedrock, with a model configured per stage and structured output extraction with retries.</li>
+              <li>Integrated Langfuse so every LLM call across the pipeline is traced.</li>
+              <li>It powered automated vulnerability detection and fix generation for the platform in <a class="tlink" href="#work-01">project 01</a>.</li>
+          </ul>
+          <p class="card__stack">Python, Cerebras, AWS Bedrock, Langfuse, tree-sitter, Joern, Pytest</p>
+          <p class="card__cat">AI Systems</p>
+        </article>
+      </li>
+      <li class="reveal-up" style="--y:60px;--dur:.62s">
+        <article class="card" id="work-03">
+          <figure class="liquid" data-scale="28" data-liquid="ripple">
+            <img src="assets/work-03-ingestion.svg" width="1600" height="1100" loading="lazy" decoding="async" alt="Diagram: six event sources are normalised into ordered lanes and routed to three destinations, with retries, at 2,000 events a minute.">
+            <span class="liquid__veil"></span><span class="liquid__glow"></span><span class="liquid__vignette"></span>
+          </figure>
+          <div class="card__row">
+            <div>
+              <h3 class="card__name"><span class="card__idx">03</span>Security event ingestion</h3>
+              <p class="card__blurb">Ingestion frameworks and pipelines that bring new sources into a security data platform, then normalise and route every event with retries built in.</p>
+            </div>
+            <div class="card__meta">
+              <p class="card__scale">Security data platform</p>
+              <p class="card__outcome">2,000 events a minute</p>
+            </div>
+          </div>
+          <dl class="card__facts">
+            <div><dt>Client</dt><dd>Comcast, through Crest Data</dd></div>
+            <div><dt>My role</dt><dd>Built the ingestion frameworks and pipelines.</dd></div>
+          </dl>
+          <ul class="card__detail">
+              <li>Designed API ingestion frameworks and integrated new security data sources into the platform.</li>
+              <li>Built pipelines in Benthos and Bloblang that normalise and route security events at about 2,000 events a minute.</li>
+              <li>Integrated external scanning services with error handling and retries.</li>
+          </ul>
+          <p class="card__stack">Python, Benthos, Bloblang, REST APIs</p>
+          <p class="card__cat">Data Pipelines</p>
+        </article>
+      </li>
+      <li class="reveal-up" style="--y:60px;--dur:.62s">
+        <article class="card" id="work-04">
+          <figure class="liquid" data-scale="28" data-liquid="ripple">
+            <img src="assets/work-04-observability.svg" width="1600" height="1100" loading="lazy" decoding="async" alt="Diagram: an observability dashboard where a metric crossing its SLA threshold raises an alert, above a row of reusable content modules.">
+            <span class="liquid__veil"></span><span class="liquid__glow"></span><span class="liquid__vignette"></span>
+          </figure>
+          <div class="card__row">
+            <div>
+              <h3 class="card__name"><span class="card__idx">04</span>Observability tooling</h3>
+              <p class="card__blurb">REST APIs and dashboards for an enterprise observability suite: reusable content modules, a licence upgrade path, and proactive SLA monitoring and alerting.</p>
+            </div>
+            <div class="card__meta">
+              <p class="card__scale">Django and React</p>
+              <p class="card__outcome">Proactive SLA alerts</p>
+            </div>
+          </div>
+          <dl class="card__facts">
+            <div><dt>Client</dt><dd>Splunk, through Crest Data</dd></div>
+            <div><dt>My role</dt><dd>Built the APIs, dashboards and alerting.</dd></div>
+          </dl>
+          <ul class="card__detail">
+              <li>Refactored an application for SAP-specific data visualisation and its Splunk integration.</li>
+              <li>Built a licence upgrade mechanism for a modular Splunk app, and reusable content pack modules for customer deployments.</li>
+              <li>Developed proactive SLA monitoring and alerting pipelines in Splunk's observability suite.</li>
+          </ul>
+          <p class="card__stack">Python, Django, React, MongoDB, Splunk</p>
+          <p class="card__cat">Observability</p>
+        </article>
+      </li>
+    </ul>
+  </section>
+
+  <!-- 8. Impact -->
+  <section class="section" id="impact">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">By The Numbers</p>
+        <h2 class="display impact__title reveal-lines">Five years, measured.</h2>
+      </div>
+    </div>
+    <dl class="stats">
+      <div class="stat reveal-up" style="--d:0ms"><dt>Enterprise tenants on one platform</dt><dd>32</dd></div>
+      <div class="stat reveal-up" style="--d:110ms"><dt>Findings a day at the weekly peak</dt><dd>1.5M</dd></div>
+      <div class="stat reveal-up" style="--d:220ms"><dt>LLM calls a day at 98.5% success</dt><dd>212K</dd></div>
+      <div class="stat reveal-up" style="--d:330ms"><dt>Prompt tokens served from cache</dt><dd>85%</dd></div>
+    </dl>
+  </section>
+
+  <!-- 9. Skills -->
+  <section class="section" id="skills">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Skills</p>
+        <h2 class="display skills__title reveal-lines">Backed by the work.</h2>
+      </div>
+      <p class="sec-head__label">Each group links to its project</p>
+    </div>
+    <ul class="skills__list">
+      <li class="skill reveal-up">
+        <h3>Backend and APIs</h3>
+        <p class="skill__items">Python, FastAPI, Django, Pydantic, REST, JWT auth, rate limiting</p>
+        <p class="skill__proof"><a href="#work-01" aria-label="Used in project 01, Multi-tenant AppSec platform">01 AppSec platform</a> <a href="#work-04" aria-label="Used in project 04, Observability tooling">04 Observability tooling</a></p>
+      </li>
+      <li class="skill reveal-up">
+        <h3>Distributed and event-driven</h3>
+        <p class="skill__items">Kafka, SQS/SNS, EventBridge, multi-tenant SaaS, dead-letter queues, caching with Valkey (Redis)</p>
+        <p class="skill__proof"><a href="#work-01" aria-label="Used in project 01, Multi-tenant AppSec platform">01 AppSec platform</a> <a href="#work-03" aria-label="Used in project 03, Security event ingestion">03 Event ingestion</a></p>
+      </li>
+      <li class="skill reveal-up">
+        <h3>AWS</h3>
+        <p class="skill__items">ECS Fargate, Lambda, SQS, S3, ECR, ALB, EventBridge, Secrets Manager, CloudWatch, VPC, IAM. Infrastructure in Terraform.</p>
+        <p class="skill__proof"><a href="#work-01" aria-label="Used in project 01, Multi-tenant AppSec platform">01 AppSec platform</a></p>
+      </li>
+      <li class="skill reveal-up">
+        <h3>AI and LLM systems</h3>
+        <p class="skill__items">Multi-agent pipelines, AWS Bedrock, Cerebras, structured output, prompt caching, RAG, Langfuse tracing, MCP</p>
+        <p class="skill__proof"><a href="#work-02" aria-label="Used in project 02, Five-stage LLM fix pipeline">02 LLM fix pipeline</a></p>
+      </li>
+      <li class="skill reveal-up">
+        <h3>Data pipelines</h3>
+        <p class="skill__items">Benthos, Bloblang, API ingestion, normalisation and routing</p>
+        <p class="skill__proof"><a href="#work-03" aria-label="Used in project 03, Security event ingestion">03 Event ingestion</a></p>
+      </li>
+      <li class="skill reveal-up">
+        <h3>Application security tooling</h3>
+        <p class="skill__items">SAST/DAST, Trivy, Gitleaks, Checkov, OpenGrep, Semgrep, Grype, SBOM/VEX, tree-sitter, Joern</p>
+        <p class="skill__proof"><a href="#work-01" aria-label="Used in project 01, Multi-tenant AppSec platform">01 AppSec platform</a> <a href="#work-02" aria-label="Used in project 02, Five-stage LLM fix pipeline">02 LLM fix pipeline</a></p>
+      </li>
+      <li class="skill reveal-up">
+        <h3>Databases</h3>
+        <p class="skill__items">DocumentDB (MongoDB), DynamoDB, Valkey (Redis)</p>
+        <p class="skill__proof"><a href="#work-01" aria-label="Used in project 01, Multi-tenant AppSec platform">01 AppSec platform</a> <a href="#work-04" aria-label="Used in project 04, Observability tooling">04 Observability tooling</a></p>
+      </li>
+      <li class="skill reveal-up">
+        <h3>Observability</h3>
+        <p class="skill__items">CloudWatch, Prometheus, Grafana, Splunk</p>
+        <p class="skill__proof"><a href="#work-01" aria-label="Used in project 01, Multi-tenant AppSec platform">01 AppSec platform</a> <a href="#work-04" aria-label="Used in project 04, Observability tooling">04 Observability tooling</a></p>
+      </li>
+      <li class="skill reveal-up">
+        <h3>Delivery and testing</h3>
+        <p class="skill__items">Docker, GitHub Actions, GitLab CI/CD, pre-commit, Pytest, integration and <span class="nb">end-to-end</span> suites in containers</p>
+        <p class="skill__proof"><a href="#work" aria-label="Used in all four projects">All four projects</a></p>
+      </li>
+    </ul>
+    <p class="skills__also">Also: JavaScript, React, Bash, C and C++.</p>
+  </section>
+
+  <!-- 10. Voices: this section of the template is left out until real recommendations are in. -->
+
+</main>
+
+<!-- 11. Contact and footer -->
+<footer class="contact" id="contact">
+  <p class="eyebrow">Contact</p>
+  <h2 class="display contact__title reveal-lines">Get in touch.</h2>
+  <p class="contact__lead reveal-up" style="--dur:.52s">Based in Ahmedabad (IST).</p>
+  <a class="contact__mail" href="mailto:hetshah2000@gmail.com">hetshah2000@gmail.com <span aria-hidden="true">&#8599;</span></a>
+  <div class="footbar">
+    <div class="footbar__left">
+      <p class="footbar__sig">Het Shah</p>
+      <p class="footbar__tag">Built for the burst.</p>
+    </div>
+    <nav class="footbar__mid" aria-label="Elsewhere">
+      <ul class="social">
+        <li><a href="https://www.linkedin.com/in/het-shah2000/" target="_blank" rel="noreferrer noopener">LinkedIn</a></li>
+        <li><a href="https://github.com/het-shah2000" target="_blank" rel="noreferrer noopener">GitHub</a></li>
+        <li><a href="mailto:hetshah2000@gmail.com">Email</a></li>
+      </ul>
+    </nav>
+    <p class="footbar__copy">&copy; <span id="year">2026</span> Het Shah. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+  var root = document.documentElement;
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var $ = function (s, el) { return (el || document).querySelector(s); };
+  var $$ = function (s, el) { return Array.prototype.slice.call((el || document).querySelectorAll(s)); };
+
+  /* scale the rem grid up above 1920px */
+  function applyAdaptiveGrid() {
+    var FONT_BASE = 16, BASE_W = 1920, COEF = 0.6666;
+    var reduction = ((BASE_W - window.innerWidth) / BASE_W) * 100 * COEF;
+    var size = FONT_BASE - (FONT_BASE * reduction) / 100;
+    if (size > FONT_BASE) root.style.fontSize = size + "px";
+    else root.style.removeProperty("font-size");
+  }
+  applyAdaptiveGrid();
+  window.addEventListener("resize", applyAdaptiveGrid);
+
+  $("#year").textContent = new Date().getFullYear();
+
+  /* the preloader always opens on the hero; a #section in the address is honoured once it has cleared */
+  try { if ("scrollRestoration" in window.history) window.history.scrollRestoration = "manual"; } catch (err) {}
+  function goToHash() {
+    var id = window.location.hash.slice(1);
+    var target = id && id !== "top" ? document.getElementById(id) : null;
+    if (!target) return;
+    if (window.lenis) window.lenis.scrollTo(target, { immediate: true, force: true, offset: anchorOffset(target) });
+    else target.scrollIntoView();
+  }
+  /* work cards sit below the fixed nav: their scroll-margin-top is passed to Lenis as an offset */
+  function anchorOffset(el) {
+    return -(parseFloat(window.getComputedStyle(el).scrollMarginTop) || 0);
+  }
+
+  /* scroll lock shared by the preloader and the mobile menu */
+  var locks = 0;
+  function lock() {
+    locks++;
+    window.__locked = true;
+    root.classList.add("is-locked");
+    if (window.lenis) window.lenis.stop();
+  }
+  function unlock() {
+    locks = Math.max(0, locks - 1);
+    if (locks) return;
+    window.__locked = false;
+    root.classList.remove("is-locked");
+    if (window.lenis) window.lenis.start();
+  }
+
+  /* hero name: split into letters */
+  $$(".name-line").forEach(function (line, i) {
+    var text = line.textContent;
+    line.textContent = "";
+    text.split("").forEach(function (c, j) {
+      var s = document.createElement("span");
+      s.className = "ch";
+      s.textContent = c;
+      s.style.transitionDelay = (i * 240 + j * 52) + "ms";
+      line.appendChild(s);
+    });
+  });
+  $$(".role > span").forEach(function (el, i) { el.style.transitionDelay = (200 + i * 80) + "ms"; });
+  var desc = $(".hero__desc"); if (desc) desc.style.transitionDelay = "400ms";
+  var avail = $(".hero__status"); if (avail) avail.style.transitionDelay = "520ms";
+  var cue = $(".hero__cue"); if (cue) cue.style.transitionDelay = "900ms";
+
+  /* section headings: split into rendered lines, reveal, then restore plain text */
+  function playLines(el) {
+    var text = el.textContent.replace(/\s+/g, " ").trim();
+    var words = text.split(" ");
+    el.textContent = "";
+    var spans = words.map(function (w, i) {
+      var s = document.createElement("span");
+      s.className = "w";
+      s.textContent = w;
+      el.appendChild(s);
+      if (i < words.length - 1) el.appendChild(document.createTextNode(" "));
+      return s;
+    });
+    var lines = [], top = null;
+    spans.forEach(function (s) {
+      if (top === null || Math.abs(s.offsetTop - top) > 4) { lines.push([]); top = s.offsetTop; }
+      lines[lines.length - 1].push(s.textContent);
+    });
+    el.textContent = "";
+    el.setAttribute("aria-label", text);
+    lines.forEach(function (ws, i) {
+      var line = document.createElement("span");
+      line.className = "line";
+      line.setAttribute("aria-hidden", "true");
+      var inner = document.createElement("span");
+      inner.className = "line-in";
+      inner.style.transitionDelay = (i * 90) + "ms";
+      inner.textContent = ws.join(" ");
+      line.appendChild(inner);
+      el.appendChild(line);
+    });
+    el.classList.add("is-split");
+    void el.offsetWidth;
+    el.classList.add("in-view");
+    window.setTimeout(function () {
+      el.textContent = text;
+      el.removeAttribute("aria-label");
+    }, lines.length * 90 + 1100);
+  }
+
+  function startReveals() {
+    var targets = $$(".reveal-up, .reveal-lines");
+    if (reduce || !("IntersectionObserver" in window)) {
+      targets.forEach(function (el) { el.classList.add("in-view", "is-split"); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        io.unobserve(e.target);
+        if (e.target.classList.contains("reveal-lines")) playLines(e.target);
+        else e.target.classList.add("in-view");
+      });
+    }, { threshold: 0 });
+    targets.forEach(function (el) { io.observe(el); });
+  }
+
+  /* preloader: count to 100, fade the labels, wipe up, then let the hero in */
+  var pre = $("#preloader");
+  var count = $("#preCount");
+  function enter() {
+    root.classList.add("hero-in");
+    startReveals();
+  }
+  if (reduce || !pre) {
+    enter();
+  } else {
+    lock();
+    window.scrollTo(0, 0);
+    var DURATION = 2000, t0 = null, fontsIn = false;
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { fontsIn = true; });
+    window.setTimeout(function () { fontsIn = true; }, 3500);
+    var tick = function (now) {
+      if (t0 === null) t0 = now;
+      var p = Math.min((now - t0) / DURATION, 1);
+      count.textContent = Math.round(p * 100);
+      if (p < 1 || !fontsIn) { window.requestAnimationFrame(tick); return; }
+      pre.classList.add("is-counted");
+      window.setTimeout(function () {
+        pre.classList.add("is-wiping");
+        root.classList.add("hero-in");
+        window.setTimeout(function () {
+          pre.style.display = "none";
+          unlock();
+          goToHash();
+          startReveals();
+        }, 700);
+      }, 500);
+    };
+    window.requestAnimationFrame(tick);
+  }
+
+  /* anchors: smooth scroll through Lenis when it is available */
+  var menu = $("#mobileMenu"), burger = $("#burger"), menuOpen = false;
+  function setMenu(open) {
+    if (open === menuOpen) return;
+    menuOpen = open;
+    menu.classList.toggle("is-open", open);
+    menu.setAttribute("aria-hidden", open ? "false" : "true");
+    burger.classList.toggle("is-open", open);
+    burger.setAttribute("aria-expanded", open ? "true" : "false");
+    burger.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    if (open) lock(); else unlock();
+  }
+  burger.addEventListener("click", function () { setMenu(!menuOpen); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") setMenu(false); });
+  window.addEventListener("resize", function () { if (window.innerWidth >= 768) setMenu(false); });
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
+    if (!a) return;
+    var id = a.getAttribute("href");
+    var target = id === "#top" ? document.body : $(id);
+    if (!target) return;
+    e.preventDefault();
+    setMenu(false);
+    if (window.lenis) window.lenis.scrollTo(id === "#top" ? 0 : target, id === "#top" ? {} : { offset: anchorOffset(target) });
+    else if (id === "#top") window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
+    else target.scrollIntoView({ behavior: reduce ? "auto" : "smooth" });
+  });
+
+  /* liquid image: SVG displacement that ramps on hover, driven by a loose spring */
+  function spring(tension, friction, onUpdate) {
+    var x = 0, v = 0, target = 0, raf = 0, last = 0;
+    function step(now) {
+      var dt = Math.min((now - last) / 1000, 1 / 30);
+      last = now;
+      v += (-tension * (x - target) - friction * v) * dt;
+      x += v * dt;
+      if (Math.abs(v) < 0.002 && Math.abs(x - target) < 0.002) { x = target; onUpdate(x); raf = 0; return; }
+      onUpdate(x);
+      raf = window.requestAnimationFrame(step);
+    }
+    return function (t) {
+      target = t;
+      if (!raf) { last = window.performance.now(); raf = window.requestAnimationFrame(step); }
+    };
+  }
+  var canHover = !reduce && window.innerWidth > 768 && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  if (canHover) {
+    $$(".liquid").forEach(function (fig, i) {
+      var img = $("img", fig);
+      if (!img) return;
+      var id = "liquid-" + i;
+      var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      svg.setAttribute("width", "0");
+      svg.setAttribute("height", "0");
+      svg.setAttribute("aria-hidden", "true");
+      svg.style.position = "absolute";
+      svg.innerHTML = '<filter id="' + id + '" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">' +
+        '<feTurbulence type="fractalNoise" baseFrequency="0.009" numOctaves="2" seed="' + (i + 3) + '" result="noise"/>' +
+        '<feDisplacementMap in="SourceGraphic" in2="noise" scale="1" xChannelSelector="R" yChannelSelector="G"/></filter>';
+      fig.appendChild(svg);
+      img.style.filter = "url(#" + id + ")";
+      var turb = $("feTurbulence", svg), disp = $("feDisplacementMap", svg);
+      var peak = parseFloat(fig.getAttribute("data-scale")) || 28;
+      var to = spring(140, 13, function (p) {
+        disp.setAttribute("scale", (1 + p * (peak - 1)).toFixed(2));
+        turb.setAttribute("baseFrequency", Math.max(0.001, 0.009 + p * 0.013).toFixed(4));
+      });
+      /* photographs hold the distortion while hovered; diagrams carry text, so there it passes through as a ripple and settles */
+      var ripple = fig.getAttribute("data-liquid") === "ripple", settle = 0;
+      fig.addEventListener("pointerenter", function () {
+        fig.classList.add("is-hover");
+        to(1);
+        window.clearTimeout(settle);
+        if (ripple) settle = window.setTimeout(function () { to(0.07); }, 320);
+      });
+      fig.addEventListener("pointerleave", function () {
+        window.clearTimeout(settle);
+        fig.classList.remove("is-hover");
+        to(0);
+      });
+    });
+  } else if ("IntersectionObserver" in window) {
+    /* no hover available (touch, reduced motion): each visual takes its colour once it is on screen */
+    var colourIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        colourIO.unobserve(e.target);
+        e.target.classList.add("is-color");
+      });
+    }, { threshold: 0.6 });
+    $$(".liquid:not(.liquid--bare)").forEach(function (fig) { colourIO.observe(fig); });
+  } else {
+    $$(".liquid:not(.liquid--bare)").forEach(function (fig) { fig.classList.add("is-color"); });
+  }
+})();
+</script>
+
+<script type="importmap">
+{ "imports": { "lenis": "https://cdn.jsdelivr.net/npm/lenis@1.3.19/dist/lenis.mjs" } }
+</script>
+<script type="module">
+  import Lenis from "lenis";
+  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const lenis = new Lenis({ smoothWheel: true });
+    window.lenis = lenis;
+    if (window.__locked) lenis.stop();
+    const raf = (t) => { lenis.raf(t); requestAnimationFrame(raf); };
+    requestAnimationFrame(raf);
+  }
+</script>
+
+<!-- Analytics: add the host's private analytics snippet here once hosting is chosen. Nothing is shown to visitors. -->
+
+</body>
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Het Shah | Profile</title>
+<!--
+  One-page profile for the people who represent Het to forward. Source for profile/Het_Shah_Profile.pdf.
+  Rules: no phone number, only the figures the content plan allows, client names always "through Crest Data".
+  Rebuild (from the Portfolio folder, needs a network connection for the fonts):
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --no-pdf-header-footer \
+      --virtual-time-budget=10000 --print-to-pdf=profile/Het_Shah_Profile.pdf profile/profile.html
+  Keep it to one A4 page: after any edit, open the PDF and check nothing is cut off at the bottom.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Onest:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+/* Layout idea: the site's identity on paper. One A4 sheet, white, the name and four figures in the display face,
+   projects in the wide column and the career facts in the narrow one. */
+:root{
+  --paper:#ffffff; --ink:#111114; --muted:#55544f; --line:#d9d7d0; --accent:#ff3b1d;
+  --font-display:"Anton","Arial Narrow",Impact,sans-serif;
+  --font-sans:"Onest",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+@page{size:A4;margin:0}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{background:var(--paper);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{background:var(--paper);color:var(--ink);font-family:var(--font-sans);font-size:8.2pt;line-height:1.38}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+.page{width:210mm;height:297mm;padding:12mm 14mm 10mm;display:flex;flex-direction:column;overflow:hidden}
+
+.label{display:flex;align-items:center;gap:2mm;font-size:6.6pt;line-height:1.2;font-weight:600;text-transform:uppercase;letter-spacing:.2em;color:var(--muted)}
+.label::before{content:"";flex:none;width:1.6mm;height:1.6mm;border-radius:50%;background:var(--accent)}
+
+/* header */
+.head{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:10mm;align-items:end;padding-bottom:4.2mm;border-bottom:.35mm solid var(--ink)}
+.name{font-family:var(--font-display);font-size:42pt;line-height:.92;font-weight:400;text-transform:uppercase;letter-spacing:-.01em}
+.role{margin-top:2.2mm;font-size:10.6pt;line-height:1.25;font-weight:600}
+.reach{font-size:8.2pt;line-height:1.5;text-align:right}
+.reach .avail{font-weight:600}
+.reach .avail::before{content:"";display:inline-block;width:1.6mm;height:1.6mm;margin-right:1.6mm;border-radius:50%;background:var(--accent);vertical-align:.1mm}
+.reach .where{color:var(--muted)}
+
+.intro{margin-top:4.2mm;font-size:9.6pt;line-height:1.42}
+
+/* figures */
+.stats{margin-top:4.2mm;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:.2mm solid var(--line);border-bottom:.2mm solid var(--line)}
+.stat{padding:2.8mm 0 2.6mm}
+.stat+.stat{padding-left:4mm;border-left:.2mm solid var(--line)}
+.stat b{display:block;font-family:var(--font-display);font-size:22pt;line-height:1;font-weight:400;letter-spacing:-.01em}
+.stat span{display:block;margin-top:1.3mm;max-width:36mm;font-size:6.6pt;line-height:1.35;font-weight:500;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+
+/* body */
+.cols{margin-top:4.6mm;display:grid;grid-template-columns:minmax(0,1fr) 62mm;column-gap:8mm;align-items:start}
+.note{margin-top:1.6mm;color:var(--muted)}
+.proj{padding:2.7mm 0 0;margin-top:2.7mm;border-top:.2mm solid var(--line)}
+.proj h3{font-size:10pt;line-height:1.2;font-weight:600;letter-spacing:-.005em}
+.proj h3 i{margin-right:1.8mm;font-style:normal;font-variant-numeric:tabular-nums;color:var(--accent)}
+.proj .who{margin-top:.8mm;font-weight:500}
+.proj .who span{font-weight:400;color:var(--muted)}
+.proj ul{margin-top:1.3mm;display:flex;flex-direction:column;gap:.8mm}
+.proj li{position:relative;padding-left:3.4mm}
+.proj li::before{content:"";position:absolute;left:0;top:.72em;width:1.7mm;height:.25mm;background:var(--accent)}
+
+.side section+section{margin-top:4.4mm}
+.job{padding-top:2.1mm;margin-top:2.1mm;border-top:.2mm solid var(--line)}
+.job .when{font-size:6.6pt;line-height:1.2;font-weight:600;text-transform:uppercase;letter-spacing:.14em;font-variant-numeric:tabular-nums;color:var(--muted)}
+.job h3{margin-top:.7mm;font-size:9pt;line-height:1.2;font-weight:600}
+.job .org{font-weight:500}
+.job p.what{margin-top:.6mm;color:var(--muted)}
+.skills{margin-top:2.1mm;border-top:.2mm solid var(--line)}
+.skills div{padding:1.35mm 0;border-bottom:.2mm solid var(--line)}
+.skills dt{display:inline;font-weight:600}
+.skills dt::after{content:"  "}
+.skills dd{display:inline;color:var(--muted)}
+.plain{margin-top:2.1mm;padding-top:2.1mm;border-top:.2mm solid var(--line)}
+.plain p+p{margin-top:1.2mm}
+.creds{margin-top:4.4mm}
+.plain b{font-weight:600}
+
+.foot{margin-top:auto;padding-top:2.4mm;border-top:.35mm solid var(--ink);display:flex;justify-content:space-between;gap:8mm;font-size:6.6pt;line-height:1.3;font-weight:500;text-transform:uppercase;letter-spacing:.16em;color:var(--muted)}
+.foot a{color:var(--ink)}
+</style>
+</head>
+<body>
+<main class="page">
+
+  <header class="head">
+    <div>
+      <h1 class="name">Het Shah</h1>
+      <p class="role">Backend and AI systems engineer</p>
+    </div>
+    <div class="reach">
+      <p class="avail">Available part-time for contract work</p>
+      <p class="where">Ahmedabad, India (IST) &middot; Remote</p>
+      <p><a href="mailto:hetshah2000@gmail.com">hetshah2000@gmail.com</a></p>
+      <p><a href="https://hetshahbuilds.in/">hetshahbuilds.in</a></p>
+      <p><a href="https://www.linkedin.com/in/het-shah2000/">linkedin.com/in/het-shah2000</a></p>
+      <p><a href="https://github.com/het-shah2000">github.com/het-shah2000</a></p>
+    </div>
+  </header>
+
+  <p class="intro">I build LLM pipelines and event-driven backends on AWS that hold up when the load arrives all at once. About five years on multi-tenant platforms for enterprise security and data products, built at Crest Data for customers including Armis, Comcast and Splunk.</p>
+
+  <div class="stats">
+    <div class="stat"><b>32</b><span>Enterprise tenants on one platform</span></div>
+    <div class="stat"><b>1.5M</b><span>Findings a day at the weekly peak</span></div>
+    <div class="stat"><b>212K</b><span>LLM calls a day at 98.5% success</span></div>
+    <div class="stat"><b>85%</b><span>Prompt tokens served from cache</span></div>
+  </div>
+
+  <div class="cols">
+    <section>
+      <p class="label">Client projects</p>
+      <p class="note">Built at Crest Data, 2021 to 2026, each for one of its enterprise customers.</p>
+
+      <article class="proj">
+        <h3><i>01</i>Multi-tenant AppSec platform</h3>
+        <p class="who">Armis, through Crest Data <span>&middot; Backend architect; led the ingest migration</span></p>
+        <ul>
+          <li>Architected event-driven microservices (FastAPI, Lambda &rarr; SQS &rarr; ECS Fargate) serving 32 enterprise tenants: 250K findings a day on average and 1.5M+ at the weekly full-scan peak.</li>
+          <li>Built the engine that runs 12 SAST and DAST scanners with unified finding normalisation and SBOM/VEX generation, and designed a Valkey cache holding about 4M live keys at an 81% average hit rate.</li>
+          <li>Led the move of findings ingest from SQS to Kafka, which ended burst throttling during full scans.</li>
+        </ul>
+      </article>
+
+      <article class="proj">
+        <h3><i>02</i>Five-stage LLM fix pipeline</h3>
+        <p class="who">Armis, through Crest Data <span>&middot; Built the provider abstraction and the tracing</span></p>
+        <ul>
+          <li>A multi-agent pipeline that finds vulnerabilities and proposes validated fixes: AST scanning (tree-sitter), cross-scanner deduplication, reachability validation (Joern), agentic fix proposal, fix validation.</li>
+          <li>About 212K LLM calls a day at 98.5% success, with 85% of prompt tokens served from cache.</li>
+          <li>Cerebras and AWS Bedrock behind one abstraction, a model configured per stage, structured output with retries, and every call traced in Langfuse.</li>
+        </ul>
+      </article>
+
+      <article class="proj">
+        <h3><i>03</i>Security event ingestion</h3>
+        <p class="who">Comcast, through Crest Data <span>&middot; Built the ingestion frameworks and pipelines</span></p>
+        <ul>
+          <li>Designed API ingestion frameworks and integrated new security data sources into a security data platform.</li>
+          <li>Built Benthos and Bloblang pipelines that normalise and route about 2,000 events a minute, and integrated external scanning services with retries.</li>
+        </ul>
+      </article>
+
+      <article class="proj">
+        <h3><i>04</i>Observability tooling</h3>
+        <p class="who">Splunk, through Crest Data <span>&middot; Built the APIs, dashboards and alerting</span></p>
+        <ul>
+          <li>Django REST APIs and React dashboards, a licence upgrade mechanism for a modular Splunk app, reusable content pack modules, and proactive SLA monitoring and alerting.</li>
+        </ul>
+      </article>
+
+      <div class="creds">
+        <p class="label">Certification and education</p>
+        <div class="plain">
+          <p><b><a href="https://www.credly.com/badges/d7e12506-c59b-4144-a612-580bf2519a79/public_url">AWS Certified Solutions Architect, Associate</a></b>, May 2026</p>
+          <p><b>B.Tech in Information Technology</b>, Dharmsinh Desai University, 2018 to 2022</p>
+        </div>
+      </div>
+    </section>
+
+    <aside class="side">
+      <section>
+        <p class="label">Experience</p>
+        <div class="job">
+          <p class="when">Oct 2026 to now</p>
+          <h3>Software Engineer 2</h3>
+          <p class="org">Infocusp Innovations, Ahmedabad</p>
+          <p class="what">Team work on a client's AI agent evaluation pipeline: how agent behaviour can be measured and validated.</p>
+        </div>
+        <div class="job">
+          <p class="when">Dec 2021 to Oct 2026</p>
+          <h3>Senior Software Engineer</h3>
+          <p class="org">Crest Data, Ahmedabad</p>
+          <p class="what">Architected and delivered AI and application-security platforms end to end. Mentored junior engineers on system design and code review.</p>
+        </div>
+        <div class="job">
+          <p class="when">May to Jul 2021</p>
+          <h3>Website Developer Intern</h3>
+          <p class="org">LearnElectronics, remote</p>
+        </div>
+      </section>
+
+      <section>
+        <p class="label">Skills</p>
+        <dl class="skills">
+          <div><dt>Backend and APIs</dt><dd>Python, FastAPI, Django, Pydantic, REST</dd></div>
+          <div><dt>Distributed systems</dt><dd>Kafka, SQS/SNS, EventBridge, multi&#8209;tenant SaaS, Valkey (Redis)</dd></div>
+          <div><dt>AWS</dt><dd>ECS Fargate, Lambda, S3, ECR, ALB, Secrets Manager, CloudWatch, VPC, IAM, Terraform</dd></div>
+          <div><dt>AI and LLM systems</dt><dd>Multi-agent pipelines, AWS Bedrock, Cerebras, prompt caching, RAG, Langfuse, MCP</dd></div>
+          <div><dt>Security tooling</dt><dd>SAST/DAST, Trivy, Gitleaks, Checkov, OpenGrep, Semgrep, Grype, SBOM/VEX</dd></div>
+          <div><dt>Data and observability</dt><dd>DocumentDB (MongoDB), DynamoDB, Benthos, Prometheus, Grafana, Splunk</dd></div>
+          <div><dt>Delivery and testing</dt><dd>Docker, GitHub Actions, GitLab CI/CD, pre-commit, Pytest</dd></div>
+        </dl>
+      </section>
+    </aside>
+  </div>
+
+  <footer class="foot">
+    <span>Diagrams and project detail: <a href="https://hetshahbuilds.in/">hetshahbuilds.in</a></span>
+    <span>Het Shah &middot; Profile &middot; Nov 2026</span>
+  </footer>
+
+</main>
+</body>
+</html>
