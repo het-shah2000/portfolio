@@ -26,11 +26,11 @@ There are two readers. Write every section so its **first line works for reader 
 | # | Section (nav label) | Status | Job |
 |---|---|---|---|
 | 1 | Hero | Done | Name, role words, positioning line, availability line |
-| 2 | Marquee | Keep | Five principles |
+| 2 | Marquee | Done | The stack from the résumé in two rows (14 Nov 2026; was the five principles) |
+| 2b | Impact | Done | Moved up under the marquee on 14 Nov 2026: the four figures with captions linking to their projects |
 | 3 | About | Done | Who Het is, how he builds (the four principles stay) |
 | 4 | Experience | Done | Short timeline: years, title, employer, what he owned |
 | 5 | Work (client projects) | Done | Each card adds the client and Het's role |
-| 6 | Impact | Keep | The four figures |
 | 7 | Skills | Done | Skills grouped by area, each group linked to the project that used it |
 | 8 | Voices | Waiting on Het | Only real recommendations from Het |
 | 9 | Contact | Done | Availability, email, LinkedIn and GitHub. No pitch. |
@@ -43,7 +43,7 @@ New nav: About · Experience · Work · Skills · Contact. Update both the deskt
 - Keep the role words (Backend / Cloud / AI Systems / Reliability) and the giant name.
 - Keep the positioning line. It is already about Het: "I build LLM pipelines and event-driven backends that hold up when the load arrives all at once. Five years on multi-tenant platforms for enterprise security and data products."
 - Availability line, approved by Het on 13 Nov with "part-time" added: **"Available part-time for contract work · Ahmedabad, IST · Remote"**. Don't mention the current full-time role in the hero (see §7 of the brief). **Update, 13 Nov evening:** Het took this line off the hero and the contact block "for now". The hero keeps "Ahmedabad, IST · Remote".
-- Portrait when it arrives (steps in `CLAUDE.md`).
+- Portrait when Het approves one (one was tried and rejected on 14 Nov 2026; see the build notes).
 
 ### 3. About (now `<section id="approach">`)
 - Retitle it "About" and change the anchor to `#about`.
@@ -74,7 +74,7 @@ Keep the diagrams and the hover behaviour. Add to each card a **client line** an
 The pipeline's internal product name appears in the résumé's scanner list. Leave it out everywhere. The same goes for the other internal product and platform names in the résumé (the Comcast platform, the Splunk app and content packs, the scan service): Het cleared company names on 13 Nov, not these.
 
 ### 6. Impact (`<section id="impact">`)
-Keep the four figures (32 / 1.5M / 212K / 85%) and their labels as they are.
+Keep the four figures (32 / 1.5M / 212K / 85%). Since 14 Nov 2026 the section sits right after the marquee, is headed "Numbers you can check.", and each figure has a one-line caption built only from kept figures and résumé facts, with a link to its project.
 
 ### 7. Skills (new, after Impact)
 Grouped lists, no proficiency bars, no logo walls. Each group ends with a link to the card that proves it. Source: the résumé's Technical Skills, minus anything that identifies a client.
@@ -131,7 +131,7 @@ Grouped lists, no proficiency bars, no logo walls. Each group ends with a link t
 5. Certifications: **keep the AWS name.** The Anthropic line is out; Het didn't mention it.
 6. Weekly chart in diagram 1: **confirmed.**
 7. Email and domain: **hetshah2000@gmail.com** and **hetshahbuilds.in** (bought).
-8. Portrait: **still to come.**
+8. Portrait: **still to come** (IMG_1992 tried and rejected on 14 Nov 2026).
 9. Recommendations for Voices: **still to come** (LinkedIn).
 10. One-page profile PDF: **built**, `profile/Het_Shah_Profile.pdf`, from `profile/profile.html`. No phone number. It names the cleared companies.
 

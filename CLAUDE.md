@@ -12,7 +12,7 @@ Two readers: the **intermediary**, who skims, is often not technical and decides
 
 - `site/index.html` was restructured on 13 Nov 2026 to match `docs/content-plan.md`: Hero, About, Experience, Work (four cards with client and role), Impact, Skills, Contact. Employers and clients are named (hard rule 1). Later that evening Het had the availability line taken off the hero and the contact block "for now", and the employer names taken out of the About intro (see the build notes).
 - A one-page profile PDF exists in `profile/`.
-- **Still to come:** the portrait, the Voices section (waits on Het's LinkedIn recommendations), and launch on hetshahbuilds.in. The build notes list every open item.
+- **Still to come:** the portrait (one tried on 14 Nov 2026 and rejected by Het; see the build notes), the Voices section (waits on Het's LinkedIn recommendations), and launch on hetshahbuilds.in. The build notes list every open item.
 
 ## Read order
 
@@ -24,7 +24,7 @@ Two readers: the **intermediary**, who skims, is often not technical and decides
 ## Files
 
 - `site/index.html`: the whole page (markup, CSS and JS). Static, no build step; `site/` deploys as it is.
-- `site/assets/`: the four SVG work-card diagrams and `og-image.png` (the social preview card). `portrait.webp` goes here when it arrives.
+- `site/assets/`: the four SVG work-card diagrams and `og-image.png` (the social preview card). `portrait.webp` goes here once Het approves a portrait.
 - `site/robots.txt` and `site/sitemap.xml`: bump `<lastmod>` in the sitemap after meaningful content changes.
 - `tools/og-image.html`: source for `og-image.png`; the rebuild command is in its top comment.
 - `wrangler.jsonc`: tells Cloudflare to deploy only `./site`. Keep it that way.
@@ -55,7 +55,7 @@ Two readers: the **intermediary**, who skims, is often not technical and decides
 
 Track their status in the build notes' open items, not here. The content plan lists what each one unblocks.
 
-- **Portrait:** Het will send it. Then cut it out on a transparent background, save it as `site/assets/portrait.webp`, uncomment the portrait block in the hero and add class `has-portrait` to `<section class="hero">`. Recheck the hero at phone sizes afterwards.
+- **Portrait:** still open. Het rejected the IMG_1992 cut-out on 14 Nov 2026 ("it doesn't look good"); don't reuse it. Next time, show Het the result before wiring it in. To use one, save a transparent cut-out as `site/assets/portrait.webp`, uncomment the portrait block in the hero, add class `has-portrait` to `<section class="hero">`, keep the head near the top of the image, and recheck the hero at phone, tablet and desktop sizes. Headless Chrome won't lay out narrower than about 500px, so check phones inside an iframe of the phone's width.
 - **Real recommendations:** Het is collecting LinkedIn recommendations. Then build Voices.
 - **Anthropic certifications:** Het answered "keep the AWS Solutions Architect name" and didn't mention these, so the line was removed. Put it back only if he asks.
 - **Internal product names:** left out. Ask before using any.

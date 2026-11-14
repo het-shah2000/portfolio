@@ -145,7 +145,7 @@ html.js .preloader.is-wiping{transform:translateY(-100%)}
 .hero__desc{grid-area:desc;max-width:26rem;color:var(--muted)}
 .hero__portrait{position:absolute;z-index:20;bottom:0;left:50%;width:80vw;height:86vh;transform:translateX(-50%);pointer-events:none}
 .hero__portrait .liquid{width:100%;height:100%;pointer-events:auto}
-.hero__portrait img{object-position:center bottom}
+.hero__portrait img{object-position:center top} /* wide boxes crop the trousers, never the head */
 .hero__fade{position:absolute;z-index:20;inset-inline:0;bottom:0;height:11vh;background:linear-gradient(to bottom,transparent,var(--background));pointer-events:none}
 .hero.has-portrait .hero__fade{height:26vh}
 /* Name sizing: without a portrait the two lines get a hairline of air (line-height .9) and are capped by
@@ -168,6 +168,13 @@ html.js.hero-in .hero__cue{opacity:1}
   .hero:not(.has-portrait){--name:min(10.5rem,21vh,max(6rem,calc((100vh - 25.2rem) / 1.692)))}
   .hero:not(.has-portrait) .hero__name{font-size:var(--name)}
   .hero:not(.has-portrait) .hero__top{padding-bottom:calc(var(--name) * 1.692 + .75rem)}
+}
+/* Phones with a portrait: the template stacks the photo behind the text, which hides the description on a light shirt.
+   Here the portrait sits in the flow under the text block, flush with the bottom of the hero, and the name moves in
+   front of it (at phone width the body would cover the whole name). The hero grows past one screen as a result. */
+@media (max-width:639.98px){
+  .hero.has-portrait .hero__portrait{position:relative;left:auto;bottom:auto;transform:none;flex:none;width:100%;height:clamp(22rem,70vh,38rem);height:clamp(22rem,70svh,38rem);margin-top:auto;padding-top:1.5rem}
+  .hero.has-portrait .hero__name{z-index:25}
 }
 @supports (height:1svh){
   @media (max-width:639.98px){
@@ -192,9 +199,11 @@ html.js.hero-in .hero__cue{opacity:1}
   .hero__cue{display:flex}
 }
 
-/* 4. marquee */
-.marquee{overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:2rem 0}
-.marquee__track{display:flex;flex-wrap:nowrap;width:max-content;animation:marquee 22s linear infinite}
+/* 4. marquee: two rows in opposite directions; row 2 is muted so the eye reads row 1 first */
+.marquee{overflow:hidden;display:flex;flex-direction:column;gap:1.25rem;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:2rem 0}
+.marquee__track{display:flex;flex-wrap:nowrap;width:max-content;animation:marquee 90s linear infinite}
+.marquee__track--rev{animation-duration:100s;animation-direction:reverse}
+.marquee__track--rev .marquee__item{color:var(--muted)}
 .marquee__item{display:flex;align-items:center;font-family:var(--font-display);font-size:var(--fs-h2);line-height:1;text-transform:uppercase;letter-spacing:-.01em;white-space:nowrap}
 .marquee__item::after{content:"";flex:none;width:.625rem;height:.625rem;margin-inline:2rem;border-radius:9999px;background:var(--accent)}
 @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
@@ -220,7 +229,7 @@ html.js.hero-in .hero__cue{opacity:1}
 }
 
 /* 6. experience: rows built from the principle and card styles */
-.exp__title{margin-top:1.5rem;max-width:14ch;font-size:var(--fs-h2);line-height:.95}
+.exp__title{margin-top:1.5rem;max-width:16ch;font-size:var(--fs-h2);line-height:.95}
 .exp__list{margin-top:4rem}
 .exp{display:grid;grid-template-columns:minmax(0,1fr);gap:1rem var(--gutter);padding:2rem 0;border-top:1px solid var(--line)}
 .exp:last-child{border-bottom:1px solid var(--line)}
@@ -275,7 +284,7 @@ html.js.hero-in .hero__cue{opacity:1}
 .card__detail li{position:relative;padding-left:1.25rem}
 .card__detail li::before{content:"";position:absolute;left:0;top:.8em;width:.5rem;height:1px;background:var(--accent)}
 .card__stack{margin-top:1.25rem;font-size:var(--fs-eyebrow);line-height:1.7;text-transform:uppercase;letter-spacing:.14em;color:var(--muted)}
-.card__cat{margin-top:1.25rem;font-size:var(--fs-eyebrow);line-height:1.2;text-transform:uppercase;letter-spacing:.22em;color:var(--muted)}
+.card__tag{margin-bottom:.75rem;font-size:var(--fs-eyebrow);line-height:1.3;font-weight:500;text-transform:uppercase;letter-spacing:.18em;color:var(--muted)}
 @media (min-width:640px){
   .work__title{font-size:var(--fs-h1)}
   .card__row{flex-direction:row;align-items:flex-start;justify-content:space-between;gap:1.5rem}
@@ -287,11 +296,15 @@ html.js.hero-in .hero__cue{opacity:1}
 }
 
 /* 8. impact */
-.impact__title{margin-top:1.5rem;font-size:var(--fs-h2);line-height:1}
+.impact__title{margin-top:1.5rem;max-width:14ch;font-size:var(--fs-h2);line-height:.95}
+@media (min-width:640px){.impact__title{font-size:var(--fs-h1)}}
 .stats{margin-top:4rem;display:grid;grid-template-columns:minmax(0,1fr);border-top:1px solid var(--line)}
 .stat{display:flex;flex-direction:column;gap:1rem;padding:2.5rem 0;border-bottom:1px solid var(--line)}
-.stat dd{order:-1;font-family:var(--font-display);font-size:var(--fs-display);line-height:1;letter-spacing:-.01em;transition:color .34s ease-out}
-.stat:hover dd{color:var(--accent)}
+.stat__num{order:-1;font-variant-numeric:tabular-nums;font-family:var(--font-display);font-size:var(--fs-display);line-height:1;letter-spacing:-.01em;transition:color .34s ease-out}
+.stat:hover .stat__num{color:var(--accent)}
+.stat__note{max-width:30ch;font-size:.9375rem;line-height:1.5;color:var(--muted)}
+.stat__note a{display:inline-block;margin-left:.25rem;font-size:var(--fs-eyebrow);font-weight:500;text-transform:uppercase;letter-spacing:.14em;color:var(--accent);transition:color .3s ease}
+.stat__note a:hover,.stat__note a:focus-visible{color:var(--foreground)}
 .stat dt{max-width:20ch;line-height:1.5;text-transform:uppercase;letter-spacing:.14em;color:var(--muted)}
 @media (min-width:640px){
   .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -355,7 +368,8 @@ html.js.hero-in .hero__cue{opacity:1}
 
 @media (prefers-reduced-motion:reduce){
   html.js .preloader{display:none}
-  .marquee__track{animation:none}
+  .marquee__track{animation:none;flex-wrap:wrap;width:auto;row-gap:.75rem;padding-inline:var(--gutter)}
+  .marquee__item[aria-hidden="true"]{display:none}
   html.js .reveal-up,html.js .reveal-lines,html.js .ch,html.js .role>span,html.js .hero__desc,html.js .hero__status,html.js .hero__cue{opacity:1!important;transform:none!important;transition:none!important}
 }
 </style>
@@ -431,20 +445,113 @@ html.js.hero-in .hero__cue{opacity:1}
     <p class="hero__cue">Scroll to enter</p>
   </section>
 
-  <!-- 4. Marquee -->
-  <section class="marquee" aria-label="Operating principles">
+  <!-- 4. Marquee: the stack, from the résumé. Row 1 builds and runs it; row 2 is AI, security, observability and testing. -->
+  <section class="marquee" aria-label="Tools I work with">
     <div class="marquee__track">
-      <span class="marquee__item">Design For The Burst</span>
-      <span class="marquee__item">Isolate Every Tenant</span>
-      <span class="marquee__item">Trace Every Call</span>
-      <span class="marquee__item">Cache What Repeats</span>
-      <span class="marquee__item">Ship With Tests</span>
-      <span class="marquee__item" aria-hidden="true">Design For The Burst</span>
-      <span class="marquee__item" aria-hidden="true">Isolate Every Tenant</span>
-      <span class="marquee__item" aria-hidden="true">Trace Every Call</span>
-      <span class="marquee__item" aria-hidden="true">Cache What Repeats</span>
-      <span class="marquee__item" aria-hidden="true">Ship With Tests</span>
+      <span class="marquee__item">Python</span>
+      <span class="marquee__item">FastAPI</span>
+      <span class="marquee__item">Django</span>
+      <span class="marquee__item">Pydantic</span>
+      <span class="marquee__item">React</span>
+      <span class="marquee__item">JavaScript</span>
+      <span class="marquee__item">Kafka</span>
+      <span class="marquee__item">SQS/SNS</span>
+      <span class="marquee__item">EventBridge</span>
+      <span class="marquee__item">AWS ECS Fargate</span>
+      <span class="marquee__item">Lambda</span>
+      <span class="marquee__item">S3</span>
+      <span class="marquee__item">ECR</span>
+      <span class="marquee__item">Terraform</span>
+      <span class="marquee__item">Docker</span>
+      <span class="marquee__item">GitHub Actions</span>
+      <span class="marquee__item">GitLab CI/CD</span>
+      <span class="marquee__item">Valkey (Redis)</span>
+      <span class="marquee__item">DocumentDB (MongoDB)</span>
+      <span class="marquee__item">DynamoDB</span>
+      <span class="marquee__item" aria-hidden="true">Python</span>
+      <span class="marquee__item" aria-hidden="true">FastAPI</span>
+      <span class="marquee__item" aria-hidden="true">Django</span>
+      <span class="marquee__item" aria-hidden="true">Pydantic</span>
+      <span class="marquee__item" aria-hidden="true">React</span>
+      <span class="marquee__item" aria-hidden="true">JavaScript</span>
+      <span class="marquee__item" aria-hidden="true">Kafka</span>
+      <span class="marquee__item" aria-hidden="true">SQS/SNS</span>
+      <span class="marquee__item" aria-hidden="true">EventBridge</span>
+      <span class="marquee__item" aria-hidden="true">AWS ECS Fargate</span>
+      <span class="marquee__item" aria-hidden="true">Lambda</span>
+      <span class="marquee__item" aria-hidden="true">S3</span>
+      <span class="marquee__item" aria-hidden="true">ECR</span>
+      <span class="marquee__item" aria-hidden="true">Terraform</span>
+      <span class="marquee__item" aria-hidden="true">Docker</span>
+      <span class="marquee__item" aria-hidden="true">GitHub Actions</span>
+      <span class="marquee__item" aria-hidden="true">GitLab CI/CD</span>
+      <span class="marquee__item" aria-hidden="true">Valkey (Redis)</span>
+      <span class="marquee__item" aria-hidden="true">DocumentDB (MongoDB)</span>
+      <span class="marquee__item" aria-hidden="true">DynamoDB</span>
     </div>
+    <div class="marquee__track marquee__track--rev">
+      <span class="marquee__item">AWS Bedrock</span>
+      <span class="marquee__item">Cerebras</span>
+      <span class="marquee__item">Multi-agent LLM pipelines</span>
+      <span class="marquee__item">RAG</span>
+      <span class="marquee__item">MCP</span>
+      <span class="marquee__item">Langfuse</span>
+      <span class="marquee__item">tree-sitter</span>
+      <span class="marquee__item">Joern</span>
+      <span class="marquee__item">Benthos</span>
+      <span class="marquee__item">Trivy</span>
+      <span class="marquee__item">Semgrep</span>
+      <span class="marquee__item">Checkov</span>
+      <span class="marquee__item">Gitleaks</span>
+      <span class="marquee__item">Grype</span>
+      <span class="marquee__item">SBOM/VEX</span>
+      <span class="marquee__item">Prometheus</span>
+      <span class="marquee__item">Grafana</span>
+      <span class="marquee__item">CloudWatch</span>
+      <span class="marquee__item">Splunk</span>
+      <span class="marquee__item">Pytest</span>
+      <span class="marquee__item">Selenium</span>
+      <span class="marquee__item" aria-hidden="true">AWS Bedrock</span>
+      <span class="marquee__item" aria-hidden="true">Cerebras</span>
+      <span class="marquee__item" aria-hidden="true">Multi-agent LLM pipelines</span>
+      <span class="marquee__item" aria-hidden="true">RAG</span>
+      <span class="marquee__item" aria-hidden="true">MCP</span>
+      <span class="marquee__item" aria-hidden="true">Langfuse</span>
+      <span class="marquee__item" aria-hidden="true">tree-sitter</span>
+      <span class="marquee__item" aria-hidden="true">Joern</span>
+      <span class="marquee__item" aria-hidden="true">Benthos</span>
+      <span class="marquee__item" aria-hidden="true">Trivy</span>
+      <span class="marquee__item" aria-hidden="true">Semgrep</span>
+      <span class="marquee__item" aria-hidden="true">Checkov</span>
+      <span class="marquee__item" aria-hidden="true">Gitleaks</span>
+      <span class="marquee__item" aria-hidden="true">Grype</span>
+      <span class="marquee__item" aria-hidden="true">SBOM/VEX</span>
+      <span class="marquee__item" aria-hidden="true">Prometheus</span>
+      <span class="marquee__item" aria-hidden="true">Grafana</span>
+      <span class="marquee__item" aria-hidden="true">CloudWatch</span>
+      <span class="marquee__item" aria-hidden="true">Splunk</span>
+      <span class="marquee__item" aria-hidden="true">Pytest</span>
+      <span class="marquee__item" aria-hidden="true">Selenium</span>
+    </div>
+  </section>
+
+  <!-- 4b. Impact: moved up under the marquee on 14 Nov 2026 so the skimming reader meets the figures first.
+       Every figure is from brief §4's kept list; each caption links to the project it comes from. -->
+  <section class="section" id="impact">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">By The Numbers</p>
+        <h2 class="display impact__title reveal-lines">Numbers you can check.</h2>
+      </div>
+      <p class="sec-head__label">Measured in production</p>
+    </div>
+    <p class="sec-lead reveal-up" style="--dur:.52s">Figures from live client platforms, not estimates. Each one links to the project it comes from.</p>
+    <dl class="stats">
+      <div class="stat reveal-up" style="--d:0ms"><dt>Enterprise tenants on one platform</dt><dd class="stat__num">32</dd><dd class="stat__note">Isolated in auth and rate limiting. <a href="#work-01">Project 01</a></dd></div>
+      <div class="stat reveal-up" style="--d:110ms"><dt>Findings a day at the weekly peak</dt><dd class="stat__num">1.5M</dd><dd class="stat__note">Up from 250K on a typical day, with no burst throttling. <a href="#work-01">Project 01</a></dd></div>
+      <div class="stat reveal-up" style="--d:220ms"><dt>LLM calls a day</dt><dd class="stat__num">212K</dd><dd class="stat__note">At 98.5% success, every call traced. <a href="#work-02">Project 02</a></dd></div>
+      <div class="stat reveal-up" style="--d:330ms"><dt>Prompt tokens served from cache</dt><dd class="stat__num">85%</dd><dd class="stat__note">Across a five-stage LLM pipeline. <a href="#work-02">Project 02</a></dd></div>
+    </dl>
   </section>
 
   <!-- 5. About -->
@@ -501,7 +608,7 @@ html.js.hero-in .hero__cue{opacity:1}
     <div class="sec-head">
       <div>
         <p class="eyebrow">Experience</p>
-        <h2 class="display exp__title reveal-lines">Where I've worked.</h2>
+        <h2 class="display exp__title reveal-lines">Five years of owning what ships.</h2>
       </div>
       <p class="sec-head__label">2021 to now</p>
     </div>
@@ -552,6 +659,7 @@ html.js.hero-in .hero__cue{opacity:1}
           </figure>
           <div class="card__row">
             <div>
+              <p class="card__tag">Application security &middot; Multi-tenant SaaS</p>
               <h3 class="card__name"><span class="card__idx">01</span>Multi-tenant AppSec platform</h3>
               <p class="card__blurb">Event-driven backend for an application-security product. Twelve scanners behind one execution engine, and an ingest path moved from SQS to Kafka to absorb a weekly burst from 250K to 1.5M findings a day.</p>
             </div>
@@ -573,7 +681,6 @@ html.js.hero-in .hero__cue{opacity:1}
               <li>Led the move of findings ingest from SQS to Kafka. It decoupled ingest throughput from the datastore's write capacity and ended burst throttling.</li>
           </ul>
           <p class="card__stack">Python, FastAPI, AWS (ECS Fargate, Lambda, SQS, S3, DocumentDB, Valkey, ALB, ECR, EventBridge, Secrets Manager, CloudWatch), Kafka, Docker</p>
-          <p class="card__cat">Application Security</p>
         </article>
       </li>
       <li class="reveal-up" style="--y:60px;--dur:.62s">
@@ -584,6 +691,7 @@ html.js.hero-in .hero__cue{opacity:1}
           </figure>
           <div class="card__row">
             <div>
+              <p class="card__tag">AI systems &middot; Multi-agent LLM</p>
               <h3 class="card__name"><span class="card__idx">02</span>Five-stage LLM fix pipeline</h3>
               <p class="card__blurb">A multi-agent pipeline that finds vulnerabilities and proposes validated fixes. Two model providers behind one abstraction, every call traced, and 85% of prompt tokens served from cache.</p>
             </div>
@@ -603,7 +711,6 @@ html.js.hero-in .hero__cue{opacity:1}
               <li>It powered automated vulnerability detection and fix generation for the platform in <a class="tlink" href="#work-01">project 01</a>.</li>
           </ul>
           <p class="card__stack">Python, Cerebras, AWS Bedrock, Langfuse, tree-sitter, Joern, Pytest</p>
-          <p class="card__cat">AI Systems</p>
         </article>
       </li>
       <li class="reveal-up" style="--y:60px;--dur:.62s">
@@ -614,6 +721,7 @@ html.js.hero-in .hero__cue{opacity:1}
           </figure>
           <div class="card__row">
             <div>
+              <p class="card__tag">Data pipelines &middot; Security events</p>
               <h3 class="card__name"><span class="card__idx">03</span>Security event ingestion</h3>
               <p class="card__blurb">Ingestion frameworks and pipelines that bring new sources into a security data platform, then normalise and route every event with retries built in.</p>
             </div>
@@ -632,7 +740,6 @@ html.js.hero-in .hero__cue{opacity:1}
               <li>Integrated external scanning services with error handling and retries.</li>
           </ul>
           <p class="card__stack">Python, Benthos, Bloblang, REST APIs</p>
-          <p class="card__cat">Data Pipelines</p>
         </article>
       </li>
       <li class="reveal-up" style="--y:60px;--dur:.62s">
@@ -643,6 +750,7 @@ html.js.hero-in .hero__cue{opacity:1}
           </figure>
           <div class="card__row">
             <div>
+              <p class="card__tag">Observability &middot; Enterprise suite</p>
               <h3 class="card__name"><span class="card__idx">04</span>Observability tooling</h3>
               <p class="card__blurb">REST APIs and dashboards for an enterprise observability suite: reusable content modules, a licence upgrade path, and proactive SLA monitoring and alerting.</p>
             </div>
@@ -661,26 +769,9 @@ html.js.hero-in .hero__cue{opacity:1}
               <li>Developed proactive SLA monitoring and alerting pipelines in Splunk's observability suite.</li>
           </ul>
           <p class="card__stack">Python, Django, React, MongoDB, Splunk</p>
-          <p class="card__cat">Observability</p>
         </article>
       </li>
     </ul>
-  </section>
-
-  <!-- 8. Impact -->
-  <section class="section" id="impact">
-    <div class="sec-head">
-      <div>
-        <p class="eyebrow">By The Numbers</p>
-        <h2 class="display impact__title reveal-lines">Five years, measured.</h2>
-      </div>
-    </div>
-    <dl class="stats">
-      <div class="stat reveal-up" style="--d:0ms"><dt>Enterprise tenants on one platform</dt><dd>32</dd></div>
-      <div class="stat reveal-up" style="--d:110ms"><dt>Findings a day at the weekly peak</dt><dd>1.5M</dd></div>
-      <div class="stat reveal-up" style="--d:220ms"><dt>LLM calls a day at 98.5% success</dt><dd>212K</dd></div>
-      <div class="stat reveal-up" style="--d:330ms"><dt>Prompt tokens served from cache</dt><dd>85%</dd></div>
-    </dl>
   </section>
 
   <!-- 9. Skills -->
@@ -749,8 +840,8 @@ html.js.hero-in .hero__cue{opacity:1}
 <!-- 11. Contact and footer -->
 <footer class="contact" id="contact">
   <p class="eyebrow">Contact</p>
-  <h2 class="display contact__title reveal-lines">Get in touch.</h2>
-  <p class="contact__lead reveal-up" style="--dur:.52s">Based in Ahmedabad (IST).</p>
+  <h2 class="display contact__title reveal-lines">Write to me.</h2>
+  <p class="contact__lead reveal-up" style="--dur:.52s">Based in Ahmedabad (IST), working remotely. Email reaches me directly.</p>
   <a class="contact__mail" href="mailto:hetshah2000@gmail.com">hetshah2000@gmail.com <span aria-hidden="true">&#8599;</span></a>
   <div class="footbar">
     <div class="footbar__left">
@@ -926,6 +1017,29 @@ html.js.hero-in .hero__cue{opacity:1}
       }, 500);
     };
     window.requestAnimationFrame(tick);
+  }
+
+  /* impact figures count up once when they come on screen. The real value is in the HTML, so without JS,
+     with reduced motion or if anything fails, the figure simply shows as written. */
+  if (!reduce && "IntersectionObserver" in window) {
+    var countIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        countIO.unobserve(e.target);
+        var el = e.target, final = el.textContent, m = final.match(/^([\d.]+)(\D*)$/);
+        if (!m) return;
+        var end = parseFloat(m[1]), dp = (m[1].split(".")[1] || "").length, t0 = null;
+        el.setAttribute("aria-label", final);
+        var step = function (now) {
+          if (t0 === null) t0 = now;
+          var p = Math.min((now - t0) / 1400, 1), eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = p < 1 ? (end * eased).toFixed(dp) + m[2] : final;
+          if (p < 1) window.requestAnimationFrame(step); else el.removeAttribute("aria-label");
+        };
+        window.requestAnimationFrame(step);
+      });
+    }, { threshold: 0.5 });
+    $$(".stat__num").forEach(function (el) { countIO.observe(el); });
   }
 
   /* anchors: smooth scroll through Lenis when it is available */

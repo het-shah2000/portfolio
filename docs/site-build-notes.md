@@ -1,6 +1,6 @@
 # hetshahbuilds.in site build notes
 
-Last updated 14 Nov 2026 (13 Nov: page restructured, names cleared, profile PDF added, availability line and About employer names taken off, site deployed on Cloudflare Workers; 14 Nov: hetshahbuilds.in connected, launch extras added). Read `CLAUDE.md` and `docs/content-plan.md` first, then this.
+Last updated 14 Nov 2026 (13 Nov: page restructured, names cleared, profile PDF added, availability line and About employer names taken off, site deployed on Cloudflare Workers; 14 Nov: hetshahbuilds.in connected, launch extras added, a hero portrait tried and switched off again, then the content pass inspired by jaydarji.in: two-row stack marquee, numbers moved under the marquee with captions and a count-up, card tags, new Experience, Impact and Contact headings). Read `CLAUDE.md` and `docs/content-plan.md` first, then this.
 
 ## What exists
 
@@ -29,6 +29,8 @@ Last updated 14 Nov 2026 (13 Nov: page restructured, names cleared, profile PDF 
 - The résumé PDF and `.tex` must not be deployed: they carry a phone number.
 - No invented testimonials. The Voices section stays out until real recommendations arrive.
 - The weekly chart in diagram 1 (six days near 250K, one day at 1.5M) is confirmed by Het.
+- **Content pass from jaydarji.in (Het, 14 Nov 2026).** Het pointed to jaydarji.in as a model and approved: a stack marquee instead of the principles, a numbers strip near the top, category tags on the cards, and statement headings. Borrowed only patterns, no copy. Left out on purpose: his "How I work" steps and "What I do" cards (they read as services, against hard rule 4), his AI chat (needs a backend, and a model answering for Het risks hard rules 2 and 3), and tap-to-reveal proof (content plan: proof stays visible). Card tags name the kind of system, not the client, so a tag never reads as Het's own freelance client; the client stays in the card's "Client" row.
+- **Marquee contents** come only from the résumé's skills and project stacks. Jay's list (PostgreSQL, RabbitMQ, Gemini, Cursor, Claude Code, CloudFormation) is not Het's and stays out unless Het says he uses them.
 
 ## Section map (as built, 13 Nov 2026)
 
@@ -36,18 +38,18 @@ Last updated 14 Nov 2026 (13 Nov: page restructured, names cleared, profile PDF 
 |---|---|---|
 | 1 | Preloader, fixed nav, mobile menu | Nav: About, Experience, Work, Skills, Contact |
 | 2 | Hero | Location line (Ahmedabad, IST · Remote); Backend / Cloud / AI Systems / Reliability; positioning line; HET / SHAH |
-| 3 | Marquee | Five operating principles |
+| 3 | Marquee | Two rows in opposite directions, all from the résumé. Row 1 (build and run): Python to DynamoDB, 20 items. Row 2, muted (AI, security, observability, testing): AWS Bedrock to Selenium, 21 items. 90s and 100s loops. With reduced motion the rows stop, wrap, and drop the duplicate copies. Was five principles until 14 Nov 2026. |
+| 3b | Impact (`#impact`) | Moved here from after Work on 14 Nov 2026. "Numbers you can check." with a lead line; 32, 1.5M, 212K, 85%, each with a one-line caption and a link to project 01 or 02. Figures count up once on screen; the real value is in the HTML, so no-JS and reduced motion show it as written. |
 | 4 | About (`#about`) | Heading, an intro paragraph (who, where, what he builds, how he works, what he is on now; no employer names), the method paragraph, AWS certification and education, then "How I build" with the four numbered principles |
-| 5 | Experience (`#experience`) | Three rows: Infocusp Innovations, Crest Data, LearnElectronics |
-| 6 | Work (`#work`, cards `#work-01` to `#work-04`) | Each card: diagram, numbered title, blurb, scale and outcome, client, my role, detail bullets, stack |
-| 7 | Impact (`#impact`) | 32, 1.5M, 212K, 85%. Unchanged. |
+| 5 | Experience (`#experience`) | Heading "Five years of owning what ships."; three rows: Infocusp Innovations, Crest Data, LearnElectronics |
+| 6 | Work (`#work`, cards `#work-01` to `#work-04`) | Each card: diagram, a category tag (for example "Application security · Multi-tenant SaaS", replacing the old category line at the bottom), numbered title, blurb, scale and outcome, client, my role, detail bullets, stack |
 | 8 | Skills (`#skills`) | Nine rows, each linking to the cards that used it, plus an "Also" line |
 | 9 | Voices | Left out for now |
-| 10 | Contact (`#contact`) and footer | "Get in touch.", location line, email, then LinkedIn, GitHub and Email links |
+| 10 | Contact (`#contact`) and footer | "Write to me.", "Based in Ahmedabad (IST), working remotely. Email reaches me directly.", email, then LinkedIn, GitHub and Email links |
 
 ## Deliberate departures from the template prompt
 
-- **No portrait or hero video yet.** The hero runs name-only. The portrait block is commented out in `index.html`; to switch it on, add a transparent cut-out at `site/assets/portrait.webp`, uncomment the block, and add class `has-portrait` to the hero section. That class also restores the template's tighter name stack and deeper bottom fade.
+- **No portrait or hero video.** The hero runs name-only. The portrait block is commented out in `index.html`; to switch it on, add a transparent cut-out at `site/assets/portrait.webp`, uncomment the block, and add class `has-portrait` to the hero section. That class also restores the template's tighter name stack and deeper bottom fade. Two portrait rules added on 14 Nov stay in the CSS and do nothing until `has-portrait` is set: the image is anchored to the top of its box (bottom-anchoring cut off the head at 1440 by 900), and below 640px the portrait sits under the text block with the name in front of it (the template's stacking put the description on the photo and hid the name).
 - **Hero status block placement.** It now holds only the location ("Ahmedabad, IST · Remote"); it held the availability line until the evening of 13 Nov. On phones it is a small block to the right of the role words. From 640px it is one line above the top row, in the gap under the nav. Both spots were empty, so the roles, the description and the name did not move.
 - **Name sizing.** The name is capped by viewport height so it never runs into the top row, and the two lines get a hairline gap when there is no portrait. Phone size is at most 10.5rem so SHAH fits inside the gutters. Since 13 Nov, on phones without a portrait the name is also capped by the room left under the description (the top block is 24.4rem tall at every phone width). On very short screens it stops shrinking at 6rem and the hero grows past one screen instead. Before this, the description overlapped the name by about 22px on a 375 by 548 viewport (iPhone SE in Safari).
 - **Rem breakpoint.** The phone font-size rule now ends at 639.98px. At exactly 640px wide both the phone and tablet rules used to apply, which broke the layout at that one width.
@@ -62,7 +64,7 @@ Rendered in headless Chrome at 16 sizes: 320, 360, 375, 390, 412 and 430 wide ph
 
 ## Open items
 
-1. Portrait cut-out from Het (he will send it).
+1. Portrait: on 14 Nov 2026 a cut-out of IMG_1992.HEIC (25 Oct 2026) was tried in the hero and Het said it didn't look good, so the block is commented out again and no photo is in `site/`. Waiting on Het for a different photo or a different approach.
 2. Real recommendations from Het (he is collecting LinkedIn ones), then build the Voices section.
 3. **Before launch, remind Het of research brief §7 items 1 and 2.** They matter more now that the page names his current employer next to "available part-time for contract work", and names Crest Data's customers.
 4. Het to say whether the Anthropic certifications line should come back.
