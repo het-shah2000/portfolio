@@ -40,7 +40,7 @@ New nav: About · Experience · Work · Skills · Contact. Update both the deskt
 ## Section by section
 
 ### 1. Hero (`<section class="hero">`)
-- Keep the role words (Backend / Cloud / AI Systems / Reliability) and the giant name.
+- Keep the role words (Backend / Cloud / AI Systems) and the giant name.
 - Keep the positioning line. It is already about Het: "I build LLM pipelines and event-driven backends that hold up when the load arrives all at once. Five years on multi-tenant platforms for enterprise security and data products."
 - Availability line, approved by Het on 13 Nov with "part-time" added: **"Available part-time for contract work · Ahmedabad, IST · Remote"**. Don't mention the current full-time role in the hero (see §7 of the brief). **Update, 13 Nov evening:** Het took this line off the hero and the contact block "for now". The hero keeps "Ahmedabad, IST · Remote".
 - Portrait when Het approves one (one was tried and rejected on 14 Nov 2026; see the build notes).

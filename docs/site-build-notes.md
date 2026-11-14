@@ -17,7 +17,7 @@ Last updated 14 Nov 2026 (13 Nov: page restructured, names cleared, profile PDF 
 
 - **Purpose (Het, 13 Nov 2026):** a profile of Het for freelancing, shared through people who represent him to clients. It is about Het (skills, what he has built, client projects), **not a sales page**: no services, prices or engagement terms. Structure: `docs/content-plan.md`.
 - **Names (Het, 13 Nov 2026):** the site names Infocusp Innovations, Crest Data, LearnElectronics, Armis, Comcast and Splunk. Clients are always shown as Crest Data's customers ("Armis, through Crest Data"). Internal product and platform names stay out until Het clears them. Later that evening Het had Infocusp Innovations and Crest Data taken out of the About intro, in wording he supplied, so that paragraph names Armis, Comcast and Splunk without "through Crest Data". The Experience rows, the Work cards and the profile PDF still name the employers; he hasn't asked to change them.
-- **Availability line: removed (Het, 13 Nov 2026, evening).** He approved "Available part-time for contract work" earlier that day, then asked for it off the hero and the contact block "for now". The hero keeps "Ahmedabad, IST · Remote" and the contact block keeps "Based in Ahmedabad (IST), working remotely." The profile PDF still carries the availability line, because the request named the site's header and footer. Put the line back in the same places if he asks.
+- **Availability line: removed (Het, 13 Nov 2026, evening).** He approved "Available part-time for contract work" earlier that day, then asked for it off the hero and the contact block "for now". The hero keeps "Ahmedabad, IST · Remote" and the contact block keeps "Based in Ahmedabad (IST)." The profile PDF still carries the availability line, because the request named the site's header and footer. Put the line back in the same places if he asks.
 - **Contact:** hetshah2000@gmail.com, LinkedIn and GitHub (github.com/het-shah2000). No phone number.
 - **Domain:** hetshahbuilds.in, bought at one.com, nameservers moved to Cloudflare. Connected 14 Nov 2026: `hetshahbuilds.in` is a custom domain on the Worker; `www` is a proxied placeholder A record (192.0.2.1) plus a Redirect Rule that 301s `https://www.*` to the bare domain with the query string kept. Don't add `www` as a Worker custom domain. Checked 14 Nov: the bare domain serves the site, `www` redirects, and the résumé, `docs/` and `CLAUDE.md` return 404.
 - **Certifications:** the AWS Solutions Architect Associate line stays and links to the Credly badge from the résumé. The Anthropic certifications line was removed, because Het's answer kept only the AWS name. Restore it if he asks.
@@ -37,7 +37,7 @@ Last updated 14 Nov 2026 (13 Nov: page restructured, names cleared, profile PDF 
 | # | Section | What is in it |
 |---|---|---|
 | 1 | Preloader, fixed nav, mobile menu | Nav: About, Experience, Work, Skills, Contact |
-| 2 | Hero | Location line (Ahmedabad, IST · Remote); Backend / Cloud / AI Systems / Reliability; positioning line; HET / SHAH |
+| 2 | Hero | Location line (Ahmedabad, IST · Remote); Backend / Cloud / AI Systems; positioning line; HET / SHAH |
 | 3 | Marquee | Two rows in opposite directions, all from the résumé. Row 1 (build and run): Python to DynamoDB, 20 items. Row 2, muted (AI, security, observability, testing): AWS Bedrock to Selenium, 21 items. 90s and 100s loops. With reduced motion the rows stop, wrap, and drop the duplicate copies. Was five principles until 14 Nov 2026. |
 | 3b | Impact (`#impact`) | Moved here from after Work on 14 Nov 2026. "Numbers you can check." with a lead line; 32, 1.5M, 212K, 85%, each with a one-line caption and a link to project 01 or 02. Figures count up once on screen; the real value is in the HTML, so no-JS and reduced motion show it as written. |
 | 4 | About (`#about`) | Heading, an intro paragraph (who, where, what he builds, how he works, what he is on now; no employer names), the method paragraph, AWS certification and education, then "How I build" with the four numbered principles |
@@ -45,7 +45,7 @@ Last updated 14 Nov 2026 (13 Nov: page restructured, names cleared, profile PDF 
 | 6 | Work (`#work`, cards `#work-01` to `#work-04`) | Each card: diagram, a category tag (for example "Application security · Multi-tenant SaaS", replacing the old category line at the bottom), numbered title, blurb, scale and outcome, client, my role, detail bullets, stack |
 | 8 | Skills (`#skills`) | Nine rows, each linking to the cards that used it, plus an "Also" line |
 | 9 | Voices | Left out for now |
-| 10 | Contact (`#contact`) and footer | "Write to me.", "Based in Ahmedabad (IST), working remotely. Email reaches me directly.", email, then LinkedIn, GitHub and Email links |
+| 10 | Contact (`#contact`) and footer | "Write to me.", "Based in Ahmedabad (IST). Email reaches me directly.", email, then LinkedIn, GitHub and Email links |
 
 ## Deliberate departures from the template prompt
 
